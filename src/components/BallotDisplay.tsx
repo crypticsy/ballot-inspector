@@ -4,14 +4,26 @@ import { PARTY_SYMBOLS, COLS, ROWS } from '../data/parties';
 interface Props {
   ballot: BallotData;
   compact?: boolean; // true on mobile — smaller cells & fonts
+  containerHeight?: number; // available height for the ballot to fit in
 }
 
-const BALLOT_W    = 460;
-const CELL_H      = 52;
-const CELL_H_SM   = 38;
+const BALLOT_W = 460;
+const CELL_H = 53;
+const CELL_H_SM = 38;
+const HEADER_FOOTER_H = 80; // approximate header + signature area height
 
-export default function BallotDisplay({ ballot, compact = false }: Props) {
-  const cellH = compact ? CELL_H_SM : CELL_H;
+export default function BallotDisplay({ ballot, compact = false, containerHeight }: Props) {
+  // Dynamically compute cell height if containerHeight is provided
+  let cellH: number;
+  if (compact) {
+    cellH = CELL_H_SM;
+  } else if (containerHeight) {
+    // Subtract header + signature area, divide remaining by ROWS
+    const availableForGrid = containerHeight - HEADER_FOOTER_H;
+    cellH = Math.max(28, Math.min(CELL_H, Math.floor(availableForGrid / ROWS)));
+  } else {
+    cellH = CELL_H;
+  }
 
   const markMap = new Map<string, { isBorder?: boolean; borderDir?: string; sloppy?: boolean }>();
   for (const mark of ballot.marks) {
@@ -23,9 +35,9 @@ export default function BallotDisplay({ ballot, compact = false }: Props) {
   }
 
   const renderMark = (sloppy?: boolean, borderDir?: string, isBorder?: boolean) => {
-    if (isBorder && borderDir === 'right')   return <span className="vote-mark-border-right">✓</span>;
-    if (isBorder && borderDir === 'bottom')  return <span className="vote-mark-border-bottom">✓</span>;
-    return <span className={`vote-mark ${sloppy ? 'vote-mark-sloppy' : ''}`}>✓</span>;
+    if (isBorder && borderDir === 'right') return <span className="vote-mark-border-right">卐</span>;
+    if (isBorder && borderDir === 'bottom') return <span className="vote-mark-border-bottom">卐</span>;
+    return <span className={`vote-mark ${sloppy ? 'vote-mark-sloppy' : ''}`}>卐</span>;
   };
 
   return (
@@ -34,9 +46,9 @@ export default function BallotDisplay({ ballot, compact = false }: Props) {
       style={{ width: '100%', maxWidth: BALLOT_W, position: 'relative', overflow: 'hidden' }}
     >
       {/* Torn corners */}
-      {ballot.hasTear && ballot.tearPosition === 'top-right'    && <div className="torn-corner-tr" />}
+      {ballot.hasTear && ballot.tearPosition === 'top-right' && <div className="torn-corner-tr" />}
       {ballot.hasTear && ballot.tearPosition === 'bottom-right' && <div className="torn-corner-br" />}
-      {ballot.hasTear && ballot.tearPosition === 'top-left'     && <div className="torn-corner-tl" />}
+      {ballot.hasTear && ballot.tearPosition === 'top-left' && <div className="torn-corner-tl" />}
 
       {/* Identifying text */}
       {ballot.identifyingText && ballot.identifyingPos && (
@@ -60,7 +72,7 @@ export default function BallotDisplay({ ballot, compact = false }: Props) {
           समानुपातिक निर्वाचन प्रणालीको मतपत्र
         </p>
         <p className="font-semibold" style={{ fontSize: compact ? '0.55rem' : '0.72rem', color: '#1a1208', marginTop: 2 }}>
-          एउटा कोठामित्र मात्र मतरसङ्केत (✓) गर्नुहोस्
+          एउटा कोठामित्र मात्र मतरसङ्केत (卐) गर्नुहोस्
         </p>
       </div>
 

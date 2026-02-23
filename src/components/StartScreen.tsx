@@ -18,7 +18,7 @@ export default function StartScreen({ onStart }: Props) {
         style={{ background: 'linear-gradient(90deg, transparent, rgba(184,150,12,0.3), transparent)' }}
       />
 
-      <div className="flex flex-col md:flex-row gap-6 items-start max-w-4xl w-full px-6 md:px-6 py-16 md:py-0">
+      <div className="flex flex-col md:flex-row gap-6 items-start max-w-4xl w-full px-6 md:px-6 py-16 md:py-0 md:min-h-0 md:overflow-y-auto">
         {/* LEFT: Main title panel */}
         <div
           className="flex-1 rounded p-6"
@@ -149,11 +149,11 @@ export default function StartScreen({ onStart }: Props) {
 
           <div className="mb-5">
             <p className="font-typewriter mb-2" style={{ color: '#22cc44', fontSize: '0.8rem' }}>
-              ✓ VALID IF:
+              卐 VALID IF:
             </p>
             <ul className="space-y-1.5">
               {[
-                'One ✓ mark in one box',
+                'One 卐 mark in one box',
                 'Clearly inside the cell',
                 'Signature present',
                 'Ballot undamaged',
