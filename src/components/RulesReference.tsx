@@ -1,4 +1,4 @@
-import { FiCheckCircle, FiXCircle } from 'react-icons/fi';
+import { FiCheckCircle, FiXCircle } from "react-icons/fi";
 
 const VALID_RULES = [
   'Exactly ONE mark (卐) in ONE party box',
@@ -22,8 +22,8 @@ export default function RulesReference() {
     <div
       className="rounded flex-1 min-h-0 flex flex-col overflow-hidden rules-scrol"
       style={{
-        background: 'rgba(15, 8, 5, 0.92)',
-        border: '1px solid rgba(180, 150, 100, 0.22)',
+        background: "rgba(15, 8, 5, 0.92)",
+        border: "1px solid rgba(180, 150, 100, 0.22)",
       }}
     >
       {/* Header — always visible */}
@@ -31,7 +31,10 @@ export default function RulesReference() {
         className="px-3 py-2 shrink-0"
         style={{ borderBottom: '1px solid rgba(180,150,100,0.18)' }}
       >
-        <p className="font-typewriter tracking-widest uppercase" style={{ color: '#b8960c', fontSize: '0.72rem' }}>
+        <p
+          className="font-typewriter tracking-widest uppercase"
+          style={{ color: "#b8960c", fontSize: "0.72rem" }}
+        >
           ELECTION RULES
         </p>
       </div>
@@ -41,7 +44,10 @@ export default function RulesReference() {
         <div>
           <div className="flex items-center gap-1.5 mb-5" style={{ color: '#2a9a2a' }}>
             <FiCheckCircle size={13} />
-            <span className="font-typewriter tracking-wider uppercase" style={{ fontSize: '0.7rem' }}>
+            <span
+              className="font-typewriter tracking-wider uppercase"
+              style={{ fontSize: "0.7rem" }}
+            >
               Valid Ballot
             </span>
           </div>
@@ -59,7 +65,10 @@ export default function RulesReference() {
         <div>
           <div className="flex items-center gap-1.5 mb-5" style={{ color: '#cc2222' }}>
             <FiXCircle size={13} />
-            <span className="font-typewriter tracking-wider uppercase" style={{ fontSize: '0.7rem' }}>
+            <span
+              className="font-typewriter tracking-wider uppercase"
+              style={{ fontSize: "0.7rem" }}
+            >
               Invalid Ballot
             </span>
           </div>
@@ -78,7 +87,8 @@ export default function RulesReference() {
           className="pt-2"
           style={{ borderTop: '1px solid rgba(180,150,100,0.12)', color: '#4a3a2a', fontSize: '0.58rem', lineHeight: 1.4 }}
         >
-          Nepal Election Commission<br />
+          Election Commission, Nepal
+          <br />
           Representation of the People Act, 2074 BS
         </div>
       </div>
