@@ -22,26 +22,26 @@ interface VoterProfile {
 }
 
 const VOTER_POOL: Omit<VoterProfile, 'age' | 'voterId'>[] = [
-  { name: 'Ram Bahadur Thapa',     face: '👨', district: 'Kathmandu' },
-  { name: 'Sita Kumari Sharma',    face: '👩', district: 'Lalitpur' },
-  { name: 'Krishna Pd. Adhikari',  face: '👴', district: 'Bhaktapur' },
-  { name: 'Laxmi Devi Gurung',     face: '👵', district: 'Kaski' },
-  { name: 'Bimal Raj Shrestha',    face: '🧑', district: 'Chitwan' },
-  { name: 'Sunita Rai',            face: '👩', district: 'Morang' },
-  { name: 'Hari Bahadur Karki',    face: '👨', district: 'Sunsari' },
-  { name: 'Manita Tamang',         face: '👧', district: 'Nuwakot' },
-  { name: 'Ganesh Pd. Poudel',     face: '👴', district: 'Gorkha' },
-  { name: 'Saraswati Devi Yadav',  face: '👵', district: 'Siraha' },
-  { name: 'Nabin Khadka',          face: '👦', district: 'Rupandehi' },
-  { name: 'Puja Magar',            face: '👧', district: 'Palpa' },
-  { name: 'Rajendra Prasad Shah',  face: '👨', district: 'Bara' },
-  { name: 'Kamala Kumari Tiwari',  face: '👩', district: 'Parsa' },
-  { name: 'Dipak Bahadur Rana',    face: '🧑', district: 'Dang' },
-  { name: 'Rekha Chaudhary',       face: '👩', district: 'Kailali' },
-  { name: 'Bikram Singh Basnet',   face: '👨', district: 'Jumla' },
-  { name: 'Gita Limbu',            face: '👧', district: 'Taplejung' },
-  { name: 'Suman Ale Magar',       face: '🧑', district: 'Myagdi' },
-  { name: 'Savita Pandey',         face: '👩', district: 'Dadeldhura' },
+  { name: 'Ram Bahadur Thapa', face: '👨', district: 'Kathmandu' },
+  { name: 'Sita Kumari Sharma', face: '👩', district: 'Lalitpur' },
+  { name: 'Krishna Pd. Adhikari', face: '👴', district: 'Bhaktapur' },
+  { name: 'Laxmi Devi Gurung', face: '👵', district: 'Kaski' },
+  { name: 'Bimal Raj Shrestha', face: '🧑', district: 'Chitwan' },
+  { name: 'Sunita Rai', face: '👩', district: 'Morang' },
+  { name: 'Hari Bahadur Karki', face: '👨', district: 'Sunsari' },
+  { name: 'Manita Tamang', face: '👧', district: 'Nuwakot' },
+  { name: 'Ganesh Pd. Poudel', face: '👴', district: 'Gorkha' },
+  { name: 'Saraswati Devi Yadav', face: '👵', district: 'Siraha' },
+  { name: 'Nabin Khadka', face: '👦', district: 'Rupandehi' },
+  { name: 'Puja Magar', face: '👧', district: 'Palpa' },
+  { name: 'Rajendra Prasad Shah', face: '👨', district: 'Bara' },
+  { name: 'Kamala Kumari Tiwari', face: '👩', district: 'Parsa' },
+  { name: 'Dipak Bahadur Rana', face: '🧑', district: 'Dang' },
+  { name: 'Rekha Chaudhary', face: '👩', district: 'Kailali' },
+  { name: 'Bikram Singh Basnet', face: '👨', district: 'Jumla' },
+  { name: 'Gita Limbu', face: '👧', district: 'Taplejung' },
+  { name: 'Suman Ale Magar', face: '🧑', district: 'Myagdi' },
+  { name: 'Savita Pandey', face: '👩', district: 'Dadeldhura' },
 ];
 
 function randomVoter(seed: number): VoterProfile {
@@ -70,6 +70,8 @@ export default function GameScreen({ onEnd }: Props) {
   const [ballotAnim, setBallotAnim] = useState<'in' | 'out' | 'idle'>('in');
   const [locked, setLocked] = useState(false);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  const [ballotContainerHeight, setBallotContainerHeight] = useState(0);
+  const ballotContainerRef = useRef<HTMLDivElement>(null);
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const startTimeRef = useRef(Date.now());
@@ -83,10 +85,21 @@ export default function GameScreen({ onEnd }: Props) {
   const done = currentIdx >= ballots.length;
   const voter = useMemo(() => randomVoter(currentIdx), [currentIdx]);
 
-  // Mobile detection
+  // Mobile detection + ballot container height measurement
   useEffect(() => {
-    const handler = () => setIsMobile(window.innerWidth < 768);
+    const handler = () => {
+      setIsMobile(window.innerWidth < 768);
+      if (ballotContainerRef.current) {
+        setBallotContainerHeight(ballotContainerRef.current.clientHeight);
+      }
+    };
     window.addEventListener('resize', handler);
+    // Initial measurement
+    requestAnimationFrame(() => {
+      if (ballotContainerRef.current) {
+        setBallotContainerHeight(ballotContainerRef.current.clientHeight);
+      }
+    });
     return () => window.removeEventListener('resize', handler);
   }, []);
 
@@ -175,10 +188,10 @@ export default function GameScreen({ onEnd }: Props) {
   const accuracy = stats.totalSeen > 0 ? Math.round((stats.correct / stats.totalSeen) * 100) : 0;
 
   const statsItems = [
-    { label: 'SCORE',    value: String(stats.score),    color: '#d4b030' },
-    { label: 'CORRECT',  value: String(stats.correct),  color: '#2a9a2a' },
-    { label: 'WRONG',    value: String(stats.incorrect), color: '#ee4444' },
-    { label: 'ACC.',     value: `${accuracy}%`,         color: '#c8b89a' },
+    { label: 'SCORE', value: String(stats.score), color: '#d4b030' },
+    { label: 'CORRECT', value: String(stats.correct), color: '#2a9a2a' },
+    { label: 'WRONG', value: String(stats.incorrect), color: '#ee4444' },
+    { label: 'ACC.', value: `${accuracy}%`, color: '#c8b89a' },
   ];
 
   const btnDisabled = locked || done || timeLeft === 0;
@@ -295,10 +308,10 @@ export default function GameScreen({ onEnd }: Props) {
       </div>
 
       {/* ── Main content ── */}
-      <div className="flex flex-1 overflow-hidden md:gap-4 md:p-4">
+      <div className="flex flex-1 overflow-hidden md:gap-3 md:px-3 md:py-2">
 
         {/* Left sidebar — desktop only */}
-        <div className="hidden md:flex shrink-0 flex-col gap-3" style={{ width: 260 }}>
+        <div className="hidden md:flex shrink-0 flex-col gap-2" style={{ width: 240 }}>
           <RulesReference />
 
           {/* Ballot progress tracker */}
@@ -318,8 +331,8 @@ export default function GameScreen({ onEnd }: Props) {
                     background: i < currentIdx
                       ? (stats.decisions[i]?.correct ? 'rgba(0,120,0,0.65)' : 'rgba(180,0,0,0.55)')
                       : i === currentIdx
-                      ? '#b8960c'
-                      : 'rgba(255,255,255,0.07)',
+                        ? '#b8960c'
+                        : 'rgba(255,255,255,0.07)',
                     borderRadius: 2,
                   }}
                 />
@@ -329,15 +342,14 @@ export default function GameScreen({ onEnd }: Props) {
         </div>
 
         {/* Center — ballot */}
-        <div className="flex-1 flex flex-col items-center overflow-y-auto overflow-x-hidden py-2 md:py-0 md:justify-center">
+        <div ref={ballotContainerRef} className="flex-1 flex flex-col items-center overflow-hidden py-2 md:py-0 md:justify-center">
           {currentBallot && !gameEndedRef.current && (
             <div
-              className={`w-full px-2 md:px-0 ${
-                ballotAnim === 'in' ? 'animate-slideIn' : ballotAnim === 'out' ? 'animate-slideOut' : ''
-              }`}
+              className={`w-full px-2 md:px-0 ${ballotAnim === 'in' ? 'animate-slideIn' : ballotAnim === 'out' ? 'animate-slideOut' : ''
+                }`}
               style={{ position: 'relative', maxWidth: 460 }}
             >
-              <BallotDisplay ballot={currentBallot} compact={isMobile} />
+              <BallotDisplay ballot={currentBallot} compact={isMobile} containerHeight={isMobile ? undefined : ballotContainerHeight - 40} />
               <FeedbackOverlay
                 show={feedback.show}
                 correct={feedback.correct}
@@ -353,7 +365,7 @@ export default function GameScreen({ onEnd }: Props) {
         </div>
 
         {/* Right sidebar — desktop only */}
-        <div className="hidden md:flex shrink-0 flex-col items-center gap-4" style={{ width: 200 }}>
+        <div className="hidden md:flex shrink-0 flex-col items-center gap-2" style={{ width: 190 }}>
 
           {/* Voter ID card */}
           <div
@@ -375,10 +387,10 @@ export default function GameScreen({ onEnd }: Props) {
               </span>
             </div>
 
-            <div className="flex flex-col items-center gap-2 px-3 py-3 mt-5">
+            <div className="flex flex-col items-center gap-2 px-3 py-3 mt-2">
               <div
                 style={{
-                  fontSize: '3.8rem',
+                  fontSize: '3rem',
                   lineHeight: 1,
                   filter: 'grayscale(1) brightness(0.72) contrast(1.1)',
                   userSelect: 'none',
@@ -410,40 +422,40 @@ export default function GameScreen({ onEnd }: Props) {
             </div>
           </div>
 
-          <p className="font-typewriter" style={{ color: '#5a4a3a', fontSize: '0.72rem', letterSpacing: '0.12em' }}>
+          <p className="font-typewriter" style={{ color: '#5a4a3a', fontSize: '0.66rem', letterSpacing: '0.12em' }}>
             YOUR VERDICT
           </p>
 
           {/* VALID */}
           <button
-            className="stamp-btn-valid rounded w-full flex flex-col items-center gap-3 py-7 px-3"
+            className="stamp-btn-valid rounded w-full flex flex-col items-center gap-1 py-2.5 px-3"
             onClick={() => decide('valid')}
             disabled={btnDisabled}
             style={{ opacity: btnDisabled ? 0.45 : 1, cursor: btnDisabled ? 'not-allowed' : 'pointer' }}
           >
-            <FiCheckCircle size={44} />
-            <span style={{ fontSize: '1.4rem', letterSpacing: '0.22em' }}>VALID</span>
-            <span style={{ fontSize: '0.72rem', letterSpacing: '0.08em', opacity: 0.75, fontFamily: "'Noto Sans Devanagari', serif" }}>
+            <FiCheckCircle size={26} />
+            <span style={{ fontSize: '0.95rem', letterSpacing: '0.22em' }}>VALID</span>
+            <span style={{ fontSize: '0.6rem', letterSpacing: '0.08em', opacity: 0.75, fontFamily: "'Noto Sans Devanagari', serif" }}>
               मान्य मतपत्र
             </span>
-            <span style={{ fontSize: '0.62rem', opacity: 0.4 }}>[V]</span>
+            <span style={{ fontSize: '0.56rem', opacity: 0.4 }}>[V]</span>
           </button>
 
           <div style={{ width: '55%', height: 1, background: 'rgba(255,255,255,0.06)' }} />
 
           {/* INVALID */}
           <button
-            className="stamp-btn-invalid rounded w-full flex flex-col items-center gap-3 py-7 px-3"
+            className="stamp-btn-invalid rounded w-full flex flex-col items-center gap-1 py-2.5 px-3"
             onClick={() => decide('invalid')}
             disabled={btnDisabled}
             style={{ opacity: btnDisabled ? 0.45 : 1, cursor: btnDisabled ? 'not-allowed' : 'pointer' }}
           >
-            <FiXCircle size={44} />
-            <span style={{ fontSize: '1.4rem', letterSpacing: '0.22em' }}>INVALID</span>
-            <span style={{ fontSize: '0.72rem', letterSpacing: '0.08em', opacity: 0.75, fontFamily: "'Noto Sans Devanagari', serif" }}>
+            <FiXCircle size={26} />
+            <span style={{ fontSize: '0.95rem', letterSpacing: '0.22em' }}>INVALID</span>
+            <span style={{ fontSize: '0.6rem', letterSpacing: '0.08em', opacity: 0.75, fontFamily: "'Noto Sans Devanagari', serif" }}>
               अमान्य मतपत्र
             </span>
-            <span style={{ fontSize: '0.62rem', opacity: 0.4 }}>[I]</span>
+            <span style={{ fontSize: '0.56rem', opacity: 0.4 }}>[I]</span>
           </button>
 
           <div className="text-center">
