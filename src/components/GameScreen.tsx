@@ -8,7 +8,7 @@ import FeedbackOverlay from './FeedbackOverlay';
 import { FiCheckCircle, FiXCircle, FiFileText, FiUser } from 'react-icons/fi';
 import { GiStamper } from 'react-icons/gi';
 
-const TOTAL_BALLOTS = 20;
+const TOTAL_BALLOTS = 25;
 const INITIAL_TIME = 120;
 const CORRECT_BONUS = 2;
 const WRONG_PENALTY = 8;
@@ -171,7 +171,7 @@ export default function GameScreen({ onEnd }: Props) {
     setFeedback({
       show: true,
       correct,
-      message: correct ? '' : (currentBallot.invalidReasonDisplay ?? ''),
+      message: currentBallot.invalidReasonDisplay ?? '',
     });
   }, [locked, currentBallot, done, timeLeft]);
 
@@ -349,7 +349,9 @@ export default function GameScreen({ onEnd }: Props) {
                 }`}
               style={{ position: 'relative', maxWidth: 460 }}
             >
-              <BallotDisplay ballot={currentBallot} compact={isMobile} containerHeight={isMobile ? undefined : ballotContainerHeight - 40} />
+              <div style={{ opacity: feedback.show ? 0.1 : 1, transition: 'opacity 0.2s ease' }}>
+                <BallotDisplay ballot={currentBallot} compact={isMobile} containerHeight={isMobile ? undefined : ballotContainerHeight - 40} />
+              </div>
               <FeedbackOverlay
                 show={feedback.show}
                 correct={feedback.correct}

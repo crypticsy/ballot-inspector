@@ -51,5 +51,5 @@ export interface PartySymbol {
   id: number;
   name: string;
   nameNepali: string;
-  icon: string; // emoji or unicode char
+  icon: import('react-icons').IconType;
 }

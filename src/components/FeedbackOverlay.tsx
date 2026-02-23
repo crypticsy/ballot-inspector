@@ -30,69 +30,54 @@ export default function FeedbackOverlay({ show, correct, message, onDone }: Prop
 
   return (
     <div
-      className="absolute inset-0 flex flex-col items-center justify-center z-50 rounded"
-      style={{
-        background: correct
-          ? 'rgba(0, 60, 0, 0.18)'
-          : 'rgba(100, 0, 0, 0.22)',
-        pointerEvents: 'none',
-      }}
+      className={`absolute inset-0 flex flex-col items-center justify-center z-50 rounded ${
+        correct ? 'bg-green-900/20' : 'bg-red-900/25'
+      }`}
+      style={{ pointerEvents: 'none' }}
     >
       {/* Stamp */}
       <div
-        className={stamped ? 'animate-stampDrop' : 'opacity-0'}
+        className={`font-typewriter font-black uppercase tracking-widest rounded ${
+          stamped ? 'animate-stampDrop' : 'opacity-0'
+        } ${
+          correct
+            ? 'text-green-400 border-green-400 bg-green-400/10'
+            : 'text-red-400 border-red-400 bg-red-400/10'
+        }`}
         style={{
-          border: `4px solid ${correct ? '#004d00' : '#8b0000'}`,
-          color: correct ? '#004d00' : '#8b0000',
+          border: '4px solid',
           padding: '8px 20px',
           transform: 'rotate(-12deg)',
-          fontFamily: 'Special Elite, monospace',
-          fontWeight: 900,
           fontSize: '2rem',
           letterSpacing: '0.15em',
-          textTransform: 'uppercase',
-          opacity: 0.9,
-          boxShadow: `0 0 0 2px ${correct ? '#004d00' : '#8b0000'}`,
-          background: correct ? 'rgba(0,77,0,0.07)' : 'rgba(139,0,0,0.07)',
-          borderRadius: 4,
+          opacity: 0.95,
+          boxShadow: `0 0 0 2px currentColor`,
         }}
       >
         {correct ? 'CORRECT' : 'WRONG'}
       </div>
 
-      {/* Icon + message */}
-      {!correct && message && (
+      {/* Invalid reason — shown whenever the ballot was invalid */}
+      {message && (
         <div
-          className="mt-3 px-4 py-2 rounded text-center"
-          style={{
-            background: 'rgba(15,8,5,0.85)',
-            border: '1px solid rgba(139,0,0,0.4)',
-            maxWidth: 300,
-            color: '#cc9988',
-            fontSize: '0.65rem',
-            fontFamily: 'Special Elite, monospace',
-            lineHeight: 1.5,
-            opacity: stamped ? 1 : 0,
-            transition: 'opacity 0.3s ease',
-          }}
+          className={`mt-3 px-4 py-2 rounded text-center bg-neutral-950/90 transition-opacity duration-300 ${
+            stamped ? 'opacity-100' : 'opacity-0'
+          } ${correct ? 'border border-green-500/40' : 'border border-red-500/50'}`}
+          style={{ maxWidth: 300 }}
         >
-          <div className="flex items-center justify-center gap-1 mb-1" style={{ color: '#cc3333' }}>
-            <FiXCircle size={12} />
-            <span className="uppercase tracking-wider" style={{ fontSize: '0.6rem' }}>Reason</span>
+          <div className={`flex items-center justify-center gap-1 mb-1 ${correct ? 'text-green-400' : 'text-red-400'}`}>
+            {correct ? <FiCheckCircle size={12} /> : <FiXCircle size={12} />}
+            <span className="uppercase tracking-wider text-xs">Invalid reason</span>
           </div>
-          {message}
+          <p className={`font-typewriter leading-relaxed ${correct ? 'text-green-200' : 'text-red-200'}`} style={{ fontSize: '0.65rem' }}>
+            {message}
+          </p>
         </div>
       )}
 
-      {correct && (
-        <div
-          className="mt-3"
-          style={{
-            opacity: stamped ? 1 : 0,
-            transition: 'opacity 0.3s ease',
-            color: '#1a6b1a',
-          }}
-        >
+      {/* Correct icon — only when ballot was valid (no reason box to show) */}
+      {correct && !message && (
+        <div className={`mt-3 text-green-400 transition-opacity duration-300 ${stamped ? 'opacity-100' : 'opacity-0'}`}>
           <FiCheckCircle size={24} />
         </div>
       )}

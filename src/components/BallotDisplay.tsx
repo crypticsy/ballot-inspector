@@ -90,6 +90,7 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
           Array.from({ length: COLS }).map((_, col) => {
             const symbolIndex = row * COLS + col;
             const symbol = PARTY_SYMBOLS[symbolIndex];
+            const PartyIcon = symbol?.icon;
             const key = `${row}-${col}`;
             const mark = markMap.get(key);
             const isLastRowEmpty = row === ROWS - 1 && col >= 3;
@@ -122,7 +123,7 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
                   overflow: mark?.isBorder ? 'visible' : 'hidden',
                 }}
               >
-                <span className="party-symbol">{symbol.icon}</span>
+                <span className="party-symbol"><PartyIcon /></span>
                 {mark && renderMark(mark.sloppy, mark.borderDir, mark.isBorder)}
               </div>
             );
