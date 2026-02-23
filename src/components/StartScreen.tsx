@@ -33,13 +33,13 @@ export default function StartScreen({ onStart }: Props) {
             <GiStamper size={28} style={{ color: '#b8960c' }} className="animate-flicker" />
             <div>
               <p className="font-typewriter tracking-widest uppercase text-xs" style={{ color: '#b8960c' }}>
-                Nepal Election Commission
+                Election Commission, Nepal
               </p>
               <p
                 className="font-nepali font-bold"
                 style={{ color: '#d4b030', fontSize: '0.8rem', fontFamily: "'Noto Sans Devanagari', serif" }}
               >
-                नेपाल निर्वाचन आयोग
+                निर्वाचन आयोग नेपाल
               </p>
             </div>
           </div>
