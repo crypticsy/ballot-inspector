@@ -10,17 +10,18 @@ interface Props {
 const BALLOT_W = 460;
 const CELL_H = 53;
 const CELL_H_SM = 38;
-const HEADER_FOOTER_H = 80; // approximate header + signature area height
+// header (~60px) + signature (~36px) = ~96px
+const HEADER_FOOTER_H = 96;
 
 export default function BallotDisplay({ ballot, compact = false, containerHeight }: Props) {
-  // Dynamically compute cell height if containerHeight is provided
+  // containerHeight always wins — lets the ballot fit the measured space on both desktop and mobile.
+  // compact controls fonts/signature sizing only.
   let cellH: number;
-  if (compact) {
-    cellH = CELL_H_SM;
-  } else if (containerHeight) {
-    // Subtract header + signature area, divide remaining by ROWS
+  if (containerHeight) {
     const availableForGrid = containerHeight - HEADER_FOOTER_H;
-    cellH = Math.max(28, Math.min(CELL_H, Math.floor(availableForGrid / ROWS)));
+    cellH = Math.max(18, Math.min(compact ? CELL_H_SM : CELL_H, Math.floor(availableForGrid / ROWS)));
+  } else if (compact) {
+    cellH = CELL_H_SM;
   } else {
     cellH = CELL_H;
   }

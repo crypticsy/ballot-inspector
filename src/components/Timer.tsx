@@ -4,9 +4,10 @@ import { FiClock } from 'react-icons/fi';
 interface Props {
   timeLeft: number;
   totalTime: number;
+  compact?: boolean;
 }
 
-export default function Timer({ timeLeft, totalTime }: Props) {
+export default function Timer({ timeLeft, totalTime, compact = false }: Props) {
   const [pulse, setPulse] = useState(false);
 
   useEffect(() => {
@@ -28,14 +29,14 @@ export default function Timer({ timeLeft, totalTime }: Props) {
   return (
     <div className="flex flex-col items-center gap-1">
       <div className="flex items-center gap-2">
-        <FiClock style={{ color: textColor, fontSize: '1.1rem' }} className={isCritical ? 'animate-ticker' : ''} />
+        <FiClock style={{ color: textColor, fontSize: compact ? '0.85rem' : '1.1rem' }} className={isCritical ? 'animate-ticker' : ''} />
         <span
           className="font-mono font-bold tracking-widest"
           style={{
             color: textColor,
             fontFamily: 'Courier Prime, monospace',
-            fontSize: '1.6rem',
-            minWidth: 68,
+            fontSize: compact ? '1.15rem' : '1.6rem',
+            minWidth: compact ? 50 : 68,
             textAlign: 'center',
             lineHeight: 1,
           }}
