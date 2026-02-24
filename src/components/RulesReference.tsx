@@ -20,20 +20,14 @@ const INVALID_RULES: { label: string; desc: string }[] = [
 export default function RulesReference() {
   return (
     <div
-      className="rounded flex-1 min-h-0 flex flex-col overflow-hidden rules-scrol"
-      style={{
-        background: "rgba(15, 8, 5, 0.92)",
-        border: "1px solid rgba(180, 150, 100, 0.22)",
-      }}
+      className="rounded flex-1 min-h-0 flex flex-col overflow-hidden rules-scrol bg-desk/[0.92] border border-[rgba(180,150,100,0.22)]"
     >
       {/* Header — always visible */}
       <div
-        className="px-3 py-2 shrink-0"
-        style={{ borderBottom: '1px solid rgba(180,150,100,0.18)' }}
+        className="px-3 py-2 shrink-0 border-b border-[rgba(180,150,100,0.18)]"
       >
         <p
-          className="font-typewriter tracking-widest uppercase"
-          style={{ color: "#b8960c", fontSize: "0.72rem" }}
+          className="font-typewriter tracking-widest uppercase text-gold text-[0.72rem]"
         >
           ELECTION RULES
         </p>
@@ -42,19 +36,18 @@ export default function RulesReference() {
       <div className="px-3 py-2 flex-1 flex flex-col justify-between">
         {/* Valid section */}
         <div>
-          <div className="flex items-center gap-1.5 mb-5" style={{ color: '#2a9a2a' }}>
+          <div className="flex items-center gap-1.5 mb-5 text-[#2a9a2a]">
             <FiCheckCircle size={13} />
             <span
-              className="font-typewriter tracking-wider uppercase"
-              style={{ fontSize: "0.7rem" }}
+              className="font-typewriter tracking-wider uppercase text-[0.7rem]"
             >
               Valid Ballot
             </span>
           </div>
           <ul className="space-y-2">
             {VALID_RULES.map((r, i) => (
-              <li key={i} className="flex items-start gap-1.5" style={{ color: '#8ab88a', fontSize: '0.66rem', lineHeight: 1.35 }}>
-                <span style={{ color: '#2a9a2a', marginTop: 2, flexShrink: 0 }}>·</span>
+              <li key={i} className="flex items-start gap-1.5 text-[#8ab88a] text-[0.66rem] leading-[1.35]">
+                <span className="text-[#2a9a2a] mt-[2px] shrink-0">·</span>
                 <span>{r}</span>
               </li>
             ))}
@@ -63,29 +56,27 @@ export default function RulesReference() {
 
         {/* Invalid section */}
         <div>
-          <div className="flex items-center gap-1.5 mb-5" style={{ color: '#cc2222' }}>
+          <div className="flex items-center gap-1.5 mb-5 text-stamp-red-light">
             <FiXCircle size={13} />
             <span
-              className="font-typewriter tracking-wider uppercase"
-              style={{ fontSize: "0.7rem" }}
+              className="font-typewriter tracking-wider uppercase text-[0.7rem]"
             >
               Invalid Ballot
             </span>
           </div>
           <ul className="space-y-2">
             {INVALID_RULES.map((r, i) => (
-              <li key={i} style={{ fontSize: '0.66rem', lineHeight: 1.35 }}>
-                <span className="font-bold capitalize" style={{ color: '#ee4444' }}>{r.label}</span>
+              <li key={i} className="text-[0.66rem] leading-[1.35]">
+                <span className="font-bold capitalize text-[#ee4444]">{r.label}</span>
                 {' — '}
-                <span style={{ color: '#8a6868', fontSize: '0.62rem' }}>{r.desc}</span>
+                <span className="text-[#8a6868] text-[0.62rem]">{r.desc}</span>
               </li>
             ))}
           </ul>
         </div>
 
         <div
-          className="pt-2"
-          style={{ borderTop: '1px solid rgba(180,150,100,0.12)', color: '#4a3a2a', fontSize: '0.58rem', lineHeight: 1.4 }}
+          className="pt-2 border-t border-[rgba(180,150,100,0.12)] text-[#4a3a2a] text-[0.58rem] leading-[1.4]"
         >
           Election Commission, Nepal
           <br />

@@ -39,22 +39,15 @@ export default function EndScreen({ stats, onRestart }: Props) {
         <div className="flex flex-col md:flex-row gap-4 items-stretch">
 
           {/* Main results panel */}
-          <div
-            className="flex-1 w-full rounded p-5 md:p-6"
-            style={{
-              background: 'rgba(26, 18, 8, 0.95)',
-              border: '1px solid rgba(184,150,12,0.25)',
-              boxShadow: '0 0 40px rgba(0,0,0,0.8)',
-            }}
-          >
+          <div className="flex-1 w-full rounded p-5 md:p-6 bg-ink/[0.95] border border-gold/25 shadow-[0_0_40px_rgba(0,0,0,0.8)]">
             {/* Header */}
-            <div className="flex items-center gap-3 mb-4 pb-3" style={{ borderBottom: '1px solid rgba(184,150,12,0.2)' }}>
-              <GiStamper size={28} style={{ color: '#b8960c' }} />
+            <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gold/20">
+              <GiStamper size={28} className="text-gold" />
               <div>
-                <p className="font-typewriter tracking-widest uppercase" style={{ color: '#b8960c', fontSize: '0.78rem' }}>
+                <p className="font-typewriter tracking-widest uppercase text-gold text-[0.78rem]">
                   Election Commission of Nepal
                 </p>
-                <p className="font-typewriter" style={{ color: '#5a4a3a', fontSize: '0.65rem' }}>
+                <p className="font-typewriter text-[#5a4a3a] text-[0.65rem]">
                   END OF SHIFT · PERFORMANCE REPORT
                 </p>
               </div>
@@ -76,13 +69,13 @@ export default function EndScreen({ stats, onRestart }: Props) {
                 {grade}
               </div>
               <div>
-                <p className="font-typewriter font-bold tracking-widest uppercase" style={{ color, fontSize: '1.3rem' }}>
+                <p className="font-typewriter font-bold tracking-widest uppercase text-[1.3rem]" style={{ color }}>
                   {label}
                 </p>
-                <p style={{ color: '#9a8870', fontFamily: "'Noto Sans Devanagari', serif", fontSize: '0.95rem' }}>
+                <p className="font-nepali text-[#9a8870] text-[0.95rem]">
                   {nepali}
                 </p>
-                <p className="font-typewriter mt-2" style={{ color: '#5a4a3a', fontSize: '0.68rem', maxWidth: 360, lineHeight: 1.6 }}>
+                <p className="font-typewriter mt-2 text-[#5a4a3a] text-[0.68rem] max-w-[360px] leading-[1.6]">
                   {getFlavorText(grade)}
                 </p>
               </div>
@@ -100,13 +93,12 @@ export default function EndScreen({ stats, onRestart }: Props) {
               ].map((s, i) => (
                 <div
                   key={i}
-                  className="rounded p-3 md:p-4"
-                  style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.04)' }}
+                  className="rounded p-3 md:p-4 bg-black/30 border border-white/[0.04]"
                 >
-                  <p className="font-typewriter" style={{ color: '#5a4a3a', fontSize: '0.6rem', letterSpacing: '0.1em' }}>
+                  <p className="font-typewriter text-[#5a4a3a] text-[0.6rem] tracking-[0.1em]">
                     {s.label}
                   </p>
-                  <p className="font-mono font-bold" style={{ color: s.color, fontSize: '1.6rem', lineHeight: 1.2 }}>
+                  <p className="font-mono font-bold text-[1.6rem] leading-[1.2]" style={{ color: s.color }}>
                     {s.value}
                   </p>
                 </div>
@@ -115,11 +107,8 @@ export default function EndScreen({ stats, onRestart }: Props) {
 
             {/* Decision breakdown */}
             {stats.decisions.length > 0 && (
-              <div
-                className="mb-4 p-3 md:p-4 rounded"
-                style={{ background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.03)' }}
-              >
-                <p className="font-typewriter mb-2" style={{ color: '#5a4a3a', fontSize: '0.6rem', letterSpacing: '0.1em' }}>
+              <div className="mb-4 p-3 md:p-4 rounded bg-black/20 border border-white/[0.03]">
+                <p className="font-typewriter mb-2 text-[#5a4a3a] text-[0.6rem] tracking-[0.1em]">
                   BALLOT DECISIONS
                 </p>
                 <div className="flex flex-wrap gap-1.5">
@@ -135,8 +124,8 @@ export default function EndScreen({ stats, onRestart }: Props) {
                       title={`Ballot #${d.ballotId}: ${d.correct ? 'Correct' : 'Wrong'}`}
                     >
                       {d.correct
-                        ? <FiCheckCircle size={12} style={{ color: '#4a9a4a' }} />
-                        : <FiXCircle size={12} style={{ color: '#cc4444' }} />
+                        ? <FiCheckCircle size={12} className="text-[#4a9a4a]" />
+                        : <FiXCircle size={12} className="text-[#cc4444]" />
                       }
                     </div>
                   ))}
@@ -147,16 +136,7 @@ export default function EndScreen({ stats, onRestart }: Props) {
             {/* Restart button */}
             <button
               onClick={onRestart}
-              className="w-full flex items-center justify-center gap-3 py-3 md:py-4 rounded font-typewriter tracking-widest uppercase transition-all duration-200"
-              style={{
-                background: 'rgba(184,150,12,0.1)',
-                border: '2px solid #b8960c',
-                color: '#d4b030',
-                fontSize: '0.85rem',
-                letterSpacing: '0.2em',
-              }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(184,150,12,0.2)'; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(184,150,12,0.1)'; }}
+              className="w-full flex items-center justify-center gap-3 py-3 md:py-4 rounded font-typewriter tracking-widest uppercase transition-all duration-200 bg-gold/10 border-2 border-gold text-gold-light text-[0.85rem] tracking-[0.2em] hover:bg-gold/20"
             >
               <FiRotateCcw size={16} />
               <span>ANOTHER SHIFT</span>
@@ -164,14 +144,8 @@ export default function EndScreen({ stats, onRestart }: Props) {
           </div>
 
           {/* Right: Accuracy breakdown by type */}
-          <div
-            className="w-full md:w-[280px] md:shrink-0 rounded p-4 md:p-5"
-            style={{
-              background: 'rgba(26,18,8,0.95)',
-              border: '1px solid rgba(184,150,12,0.2)',
-            }}
-          >
-            <p className="font-typewriter mb-4" style={{ color: '#b8960c', fontSize: '0.68rem', letterSpacing: '0.1em' }}>
+          <div className="w-full md:w-[280px] md:shrink-0 rounded p-4 md:p-5 bg-ink/[0.95] border border-gold/20">
+            <p className="font-typewriter mb-4 text-gold text-[0.68rem] tracking-[0.1em]">
               ERROR ANALYSIS
             </p>
 
@@ -196,14 +170,14 @@ export default function EndScreen({ stats, onRestart }: Props) {
               return Object.entries(reasons).map(([k, v]) => (
                 <div key={k} className="mb-3">
                   <div className="flex justify-between mb-0.5">
-                    <span className="font-typewriter" style={{ color: '#7a6a5a', fontSize: '0.62rem' }}>
+                    <span className="font-typewriter text-[#7a6a5a] text-[0.62rem]">
                       {labels[k] ?? k}
                     </span>
-                    <span className="font-typewriter" style={{ color: '#9a8870', fontSize: '0.62rem' }}>
+                    <span className="font-typewriter text-[#9a8870] text-[0.62rem]">
                       {v.correct}/{v.total}
                     </span>
                   </div>
-                  <div className="rounded overflow-hidden" style={{ height: 5, background: 'rgba(255,255,255,0.06)' }}>
+                  <div className="rounded overflow-hidden h-[5px] bg-white/[0.06]">
                     <div
                       style={{
                         height: '100%',
@@ -216,14 +190,14 @@ export default function EndScreen({ stats, onRestart }: Props) {
               ));
             })()}
 
-            <div className="mt-5 pt-4" style={{ borderTop: '1px solid rgba(184,150,12,0.1)' }}>
-              <div className="flex items-center gap-1.5 mb-2">
-                <FiAward size={12} style={{ color: '#b8960c' }} />
-                <p className="font-typewriter" style={{ color: '#b8960c', fontSize: '0.62rem' }}>RATING SCALE</p>
+            <div className="mt-5 pt-4 border-t border-gold/10">
+              <div className="flex items-center gap-1.5 mb-4">
+                <FiAward size={12} className="text-gold" />
+                <p className="font-typewriter text-gold text-sm">RATING SCALE</p>
               </div>
               {[['S', '90%+ & 100+ pts', '#d4b030'], ['A', '80%+', '#1a6b1a'], ['B', '70%+', '#4a7a9a'],
               ['C', '60%+', '#8a6a00'], ['D', '50%+', '#8a4a00'], ['F', '<50%', '#8b0000']].map(([g, t, c]) => (
-                <p key={g} className="font-typewriter" style={{ color: '#5a4a3a', fontSize: '0.58rem', lineHeight: 1.8 }}>
+                <p key={g} className="font-typewriter text-[#5a4a3a] text-sm leading-[1.8]">
                   <span style={{ color: c as string }}>{g}</span> — {t}
                 </p>
               ))}

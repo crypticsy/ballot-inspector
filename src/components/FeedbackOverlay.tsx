@@ -30,29 +30,19 @@ export default function FeedbackOverlay({ show, correct, message, onDone }: Prop
 
   return (
     <div
-      className={`absolute inset-0 flex flex-col items-center justify-center z-50 rounded ${
+      className={`absolute inset-0 flex flex-col items-center justify-center z-50 rounded pointer-events-none ${
         correct ? 'bg-green-900/20' : 'bg-red-900/25'
       }`}
-      style={{ pointerEvents: 'none' }}
     >
       {/* Stamp */}
       <div
-        className={`font-typewriter font-black uppercase tracking-widest rounded ${
+        className={`font-typewriter font-black uppercase tracking-[0.15em] rounded border-4 px-5 py-2 -rotate-12 text-[2rem] opacity-[0.95] shadow-[0_0_0_2px_currentColor] ${
           stamped ? 'animate-stampDrop' : 'opacity-0'
         } ${
           correct
             ? 'text-green-400 border-green-400 bg-green-400/10'
             : 'text-red-400 border-red-400 bg-red-400/10'
         }`}
-        style={{
-          border: '4px solid',
-          padding: '8px 20px',
-          transform: 'rotate(-12deg)',
-          fontSize: '2rem',
-          letterSpacing: '0.15em',
-          opacity: 0.95,
-          boxShadow: `0 0 0 2px currentColor`,
-        }}
       >
         {correct ? 'CORRECT' : 'WRONG'}
       </div>
@@ -60,16 +50,15 @@ export default function FeedbackOverlay({ show, correct, message, onDone }: Prop
       {/* Invalid reason — shown whenever the ballot was invalid */}
       {message && (
         <div
-          className={`mt-3 px-4 py-2 rounded text-center bg-neutral-950/90 transition-opacity duration-300 ${
+          className={`mt-3 px-4 py-2 rounded text-center bg-neutral-950/90 transition-opacity duration-300 max-w-[300px] ${
             stamped ? 'opacity-100' : 'opacity-0'
           } ${correct ? 'border border-green-500/40' : 'border border-red-500/50'}`}
-          style={{ maxWidth: 300 }}
         >
           <div className={`flex items-center justify-center gap-1 mb-1 ${correct ? 'text-green-400' : 'text-red-400'}`}>
             {correct ? <FiCheckCircle size={12} /> : <FiXCircle size={12} />}
             <span className="uppercase tracking-wider text-xs">Invalid reason</span>
           </div>
-          <p className={`font-typewriter leading-relaxed ${correct ? 'text-green-200' : 'text-red-200'}`} style={{ fontSize: '0.65rem' }}>
+          <p className={`font-typewriter leading-relaxed text-[0.65rem] ${correct ? 'text-green-200' : 'text-red-200'}`}>
             {message}
           </p>
         </div>

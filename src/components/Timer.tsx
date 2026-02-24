@@ -28,24 +28,19 @@ export default function Timer({ timeLeft, totalTime, compact = false }: Props) {
 
   return (
     <div className="flex flex-col items-center gap-1">
-      <div className="flex items-center gap-2">
-        <FiClock style={{ color: textColor, fontSize: compact ? '0.85rem' : '1.1rem', display: 'block' }} className={isCritical ? 'animate-ticker' : ''} />
+      <div className="flex items-center gap-2 pb-1.5">
+        <FiClock
+          style={{ color: textColor }}
+          className={`block ${compact ? 'text-[0.85rem]' : 'text-[1.1rem]'} ${isCritical ? 'animate-ticker' : ''}`}
+        />
         <span
-          className="font-mono font-bold tracking-widest"
-          style={{
-            color: textColor,
-            fontFamily: 'Courier Prime, monospace',
-            fontSize: compact ? '1.15rem' : '1.6rem',
-            minWidth: compact ? 50 : 68,
-            textAlign: 'center',
-            lineHeight: 1,
-            display: 'block',
-          }}
+          className={`font-mono font-bold tracking-widest block text-center leading-none ${compact ? 'text-[1.15rem] min-w-[50px]' : 'text-lg min-w-[68px]'}`}
+          style={{ color: textColor }}
         >
           {String(mins).padStart(2, '0')}:{String(secs).padStart(2, '0')}
         </span>
       </div>
-      <div className="w-full rounded-full overflow-hidden" style={{ height: 5, background: 'rgba(255,255,255,0.08)' }}>
+      <div className="w-full rounded-full overflow-hidden h-[5px] bg-white/[0.08]">
         <div
           className="h-full transition-all duration-1000"
           style={{

@@ -43,8 +43,7 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
 
   return (
     <div
-      className="ballot-paper rounded shadow-ballot mx-auto select-none"
-      style={{ width: '100%', maxWidth: BALLOT_W, position: 'relative', overflow: 'hidden' }}
+      className="ballot-paper rounded shadow-ballot mx-auto select-none w-full max-w-[460px] relative overflow-hidden"
     >
       {/* Torn corners */}
       {ballot.hasTear && ballot.tearPosition === 'top-right' && <div className="torn-corner-tr" />}
@@ -62,17 +61,14 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
       )}
 
       {/* Header */}
-      <div
-        className="text-center py-2 px-3"
-        style={{ fontFamily: "'Noto Sans Devanagari', serif", borderBottom: '2px solid #1a1208' }}
-      >
-        <p className="font-bold leading-snug" style={{ fontSize: compact ? '0.65rem' : '0.85rem', color: '#1a1208' }}>
+      <div className="text-center py-2 px-3 font-nepali border-b-2 border-ink">
+        <p className={`font-bold leading-snug text-ink ${compact ? 'text-[0.65rem]' : 'text-[0.85rem]'}`}>
           प्रतिनिधि सभा सदस्य निर्वाचन, २०७९
         </p>
-        <p className="leading-snug" style={{ fontSize: compact ? '0.58rem' : '0.75rem', color: '#1a1208' }}>
+        <p className={`leading-snug text-ink ${compact ? 'text-[0.58rem]' : 'text-[0.75rem]'}`}>
           समानुपातिक निर्वाचन प्रणालीको मतपत्र
         </p>
-        <p className="font-semibold" style={{ fontSize: compact ? '0.55rem' : '0.72rem', color: '#1a1208', marginTop: 2 }}>
+        <p className={`font-semibold text-ink mt-[2px] ${compact ? 'text-[0.55rem]' : 'text-[0.72rem]'}`}>
           एउटा कोठामित्र मात्र मतरसङ्केत (卐) गर्नुहोस्
         </p>
       </div>
@@ -134,17 +130,16 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
 
       {/* Signature area */}
       <div
-        className="flex items-center px-3"
+        className="flex items-center px-3 font-nepali"
         style={{
           borderTop: '1.5px solid #1a1208',
           margin: '0 3px',
-          fontFamily: "'Noto Sans Devanagari', serif",
           minHeight: compact ? 26 : 34,
           paddingTop: compact ? 3 : 6,
           paddingBottom: compact ? 3 : 6,
         }}
       >
-        <span style={{ fontSize: compact ? '0.58rem' : '0.72rem', color: '#1a1208', whiteSpace: 'nowrap' }}>
+        <span className={`text-ink whitespace-nowrap ${compact ? 'text-[0.58rem]' : 'text-[0.72rem]'}`}>
           मतदान अधिकृतको दस्तखत :
         </span>
         <div
