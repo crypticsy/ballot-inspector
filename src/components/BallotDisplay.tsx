@@ -7,7 +7,7 @@ interface Props {
   containerHeight?: number; // available height for the ballot to fit in
 }
 
-const BALLOT_W = 460;
+// const BALLOT_W = 460;
 const CELL_H = 53;
 const CELL_H_SM = 38;
 // header (~60px) + signature (~36px) = ~96px
