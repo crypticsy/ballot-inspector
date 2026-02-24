@@ -7,6 +7,7 @@ import RulesReference from "./RulesReference";
 import FeedbackOverlay from "./FeedbackOverlay";
 import { FiCheckCircle, FiXCircle, FiFileText, FiUser } from "react-icons/fi";
 import { GiStamper } from "react-icons/gi";
+import FlipClock from "./FlipClock";
 
 const TOTAL_BALLOTS = 25;
 const INITIAL_TIME = 120;
@@ -326,6 +327,8 @@ export default function GameScreen({ onEnd }: Props) {
         {/* Left sidebar — desktop only */}
         <div className="hidden md:flex shrink-0 flex-col gap-2 w-60">
           <RulesReference />
+
+          <FlipClock />
 
           {/* Creator credit */}
           <a

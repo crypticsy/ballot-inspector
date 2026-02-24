@@ -157,6 +157,7 @@ export default function StartScreen({ onStart }: Props) {
               <span className="text-[#7a6a5a]">[I] — Invalid</span>
             </p>
           </div>
+
         </div>
       </div>
 

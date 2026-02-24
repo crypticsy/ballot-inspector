@@ -304,6 +304,19 @@
   -ms-overflow-style: none;
 }
 
+/* ── Flip Clock — only keyframes needed; all other styles are Tailwind ── */
+.fc-flap-top { animation: fcTopAway 0.3s ease-in  forwards; }
+.fc-flap-bot { animation: fcBotIn   0.28s ease-out forwards; }
+
+@keyframes fcTopAway {
+  from { transform: rotateX(0deg);   }
+  to   { transform: rotateX(-90deg); }
+}
+@keyframes fcBotIn {
+  from { transform: rotateX(90deg);  }
+  to   { transform: rotateX(0deg);   }
+}
+
 /* ── Mobile overrides ── */
 @media (max-width: 767px) {
   body {
