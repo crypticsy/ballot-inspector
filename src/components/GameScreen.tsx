@@ -325,7 +325,7 @@ export default function GameScreen({ onEnd }: Props) {
       {/* ── Main content ── */}
       <div className="flex flex-1 overflow-hidden md:gap-3 md:px-3 md:py-2">
         {/* Left sidebar — desktop only */}
-        <div className="hidden md:flex shrink-0 flex-col gap-2 w-60">
+        <div className="hidden md:flex shrink-0 flex-col gap-2 w-72">
           <RulesReference />
 
           <FlipClock />
@@ -335,14 +335,14 @@ export default function GameScreen({ onEnd }: Props) {
             href="https://www.animeshbasnet.com.np/"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full group flex items-center gap-2.5 px-3 py-2.5 rounded no-underline bg-desk/[0.85] border border-gold/[0.18]"
+            className="w-full group flex items-center justify-center gap-2 py-2.5 pr-6 rounded no-underline bg-desk/[0.85] border border-gold/[0.18]"
           >
             <img
               src="https://github.com/crypticsy.png"
               alt="Crypticsy"
               className="rounded-full shrink-0 opacity-70 group-hover:opacity-100 transition-opacity duration-200 w-7 h-7"
             />
-            <div>
+            <div className="flex gap-2 tems-start mt-1 items-center">
               <p className="font-typewriter text-[#5a4a3a] text-[0.58rem] tracking-[0.08em]">
                 CREATED BY
               </p>
@@ -398,7 +398,7 @@ export default function GameScreen({ onEnd }: Props) {
         </div>
 
         {/* Right sidebar — desktop only */}
-        <div className="hidden md:flex shrink-0 flex-col items-center gap-2 w-[190px]">
+        <div className="hidden md:flex shrink-0 flex-col items-center gap-2 w-[195px]">
           {/* Ballot progress tracker */}
           <div className="w-full px-3 py-3 rounded bg-desk/[0.85] border border-gold/[0.18]">
             <p className="font-typewriter mb-2 text-[#5a4a3a] text-[0.68rem] tracking-[0.1em]">
