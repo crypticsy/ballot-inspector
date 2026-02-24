@@ -281,15 +281,6 @@ export default function GameScreen({ onEnd }: Props) {
               </p>
             </div>
           ))}
-          <div className="flex items-center gap-1">
-            <FiFileText size={14} style={{ color: "#5a4a3a" }} />
-            <span
-              className="font-typewriter"
-              style={{ fontSize: "0.8rem", color: "#7a6a5a" }}
-            >
-              {Math.min(currentIdx + 1, ballots.length)}/{ballots.length}
-            </span>
-          </div>
         </div>
       </div>
 
@@ -312,7 +303,7 @@ export default function GameScreen({ onEnd }: Props) {
             className="font-typewriter tracking-widest uppercase"
             style={{ color: "#b8960c", fontSize: "0.52rem" }}
           >
-            Ballot
+            Election Comission
           </p>
         </div>
         <div className="flex items-center gap-3" style={{ paddingTop: 6 }}>
@@ -413,9 +404,104 @@ export default function GameScreen({ onEnd }: Props) {
         >
           <RulesReference />
 
+          {/* Creator credit */}
+          <a
+            href="https://www.animeshbasnet.com.np/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full group flex items-center gap-2.5 px-3 py-2.5 rounded"
+            style={{
+              background: "rgba(15,8,5,0.85)",
+              border: "1px solid rgba(184,150,12,0.18)",
+              textDecoration: "none",
+            }}
+          >
+            <img
+              src="https://github.com/crypticsy.png"
+              alt="Crypticsy"
+              className="rounded-full shrink-0 opacity-70 group-hover:opacity-100 transition-opacity duration-200"
+              style={{ width: 28, height: 28 }}
+            />
+            <div>
+              <p
+                className="font-typewriter"
+                style={{ color: "#5a4a3a", fontSize: "0.58rem", letterSpacing: "0.08em" }}
+              >
+                CREATED BY
+              </p>
+              <p
+                className="font-typewriter group-hover:text-amber-400 transition-colors duration-200"
+                style={{ color: "#7a6a5a", fontSize: "0.68rem", letterSpacing: "0.06em" }}
+              >
+                Crypticsy
+              </p>
+            </div>
+          </a>
+        </div>
+
+        {/* Center — ballot */}
+        <div className="flex-1 flex flex-col items-center overflow-hidden py-2 md:py-0">
+          <div
+            ref={ballotContainerRef}
+            className="ballot-scroll-area flex-1 flex flex-col items-center justify-center overflow-hidden w-full"
+          >
+            {currentBallot && !gameEndedRef.current && (
+              <div
+                className={`w-full px-2 md:px-0 ${
+                  ballotAnim === "in"
+                    ? "animate-slideIn"
+                    : ballotAnim === "out"
+                      ? "animate-slideOut"
+                      : ""
+                }`}
+                style={{ position: "relative", maxWidth: 460 }}
+              >
+                <div
+                  style={{
+                    opacity: feedback.show ? 0.1 : 1,
+                    transition: "opacity 0.2s ease",
+                  }}
+                >
+                  <BallotDisplay
+                    ballot={currentBallot}
+                    compact={isMobile}
+                    containerHeight={
+                      ballotContainerHeight > 0
+                        ? ballotContainerHeight - 16
+                        : undefined
+                    }
+                  />
+                </div>
+                <FeedbackOverlay
+                  show={feedback.show}
+                  correct={feedback.correct}
+                  message={feedback.message}
+                  onDone={handleFeedbackDone}
+                />
+              </div>
+            )}
+          </div>
+
+          <p
+            className="hidden md:block font-typewriter shrink-0 py-2"
+            style={{
+              color: "#c8a97a",
+              fontSize: "0.72rem",
+              letterSpacing: "0.12em",
+            }}
+          >
+            Press [V] for VALID · [I] for INVALID
+          </p>
+        </div>
+
+        {/* Right sidebar — desktop only */}
+        <div
+          className="hidden md:flex shrink-0 flex-col items-center gap-2"
+          style={{ width: 190 }}
+        >
           {/* Ballot progress tracker */}
           <div
-            className="px-3 py-3 rounded"
+            className="w-full px-3 py-3 rounded"
             style={{
               background: "rgba(15,8,5,0.85)",
               border: "1px solid rgba(184,150,12,0.18)",
@@ -452,66 +538,7 @@ export default function GameScreen({ onEnd }: Props) {
               ))}
             </div>
           </div>
-        </div>
 
-        {/* Center — ballot */}
-        <div
-          ref={ballotContainerRef}
-          className="ballot-scroll-area flex-1 flex flex-col items-center overflow-hidden py-2 md:py-0 md:justify-center"
-        >
-          {currentBallot && !gameEndedRef.current && (
-            <div
-              className={`w-full px-2 md:px-0 ${
-                ballotAnim === "in"
-                  ? "animate-slideIn"
-                  : ballotAnim === "out"
-                    ? "animate-slideOut"
-                    : ""
-              }`}
-              style={{ position: "relative", maxWidth: 460 }}
-            >
-              <div
-                style={{
-                  opacity: feedback.show ? 0.1 : 1,
-                  transition: "opacity 0.2s ease",
-                }}
-              >
-                <BallotDisplay
-                  ballot={currentBallot}
-                  compact={isMobile}
-                  containerHeight={
-                    ballotContainerHeight > 0
-                      ? ballotContainerHeight - 16
-                      : undefined
-                  }
-                />
-              </div>
-              <FeedbackOverlay
-                show={feedback.show}
-                correct={feedback.correct}
-                message={feedback.message}
-                onDone={handleFeedbackDone}
-              />
-            </div>
-          )}
-
-          <p
-            className="hidden md:block font-typewriter mt-3"
-            style={{
-              color: "#4a3a28",
-              fontSize: "0.72rem",
-              letterSpacing: "0.12em",
-            }}
-          >
-            Press [V] for VALID · [I] for INVALID
-          </p>
-        </div>
-
-        {/* Right sidebar — desktop only */}
-        <div
-          className="hidden md:flex shrink-0 flex-col items-center gap-2"
-          style={{ width: 190 }}
-        >
           {/* Voter ID card */}
           <div
             className="w-full rounded"
@@ -737,37 +764,6 @@ export default function GameScreen({ onEnd }: Props) {
       </div>
 
 
-      {/* Creator credit — desktop only, bottom-right corner */}
-      <a
-        href="https://www.animeshbasnet.com.np/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="hidden md:flex absolute bottom-3 right-4 group items-center gap-2"
-        style={{ zIndex: 50 }}
-      >
-        <span
-          className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
-          style={{ color: "#b8960c", fontSize: "0.78rem" }}
-        >
-          Created by Crypticsy
-        </span>
-        <img
-          src="https://github.com/crypticsy.png"
-          alt="Crypticsy"
-          className="rounded-full transition-opacity duration-200 opacity-70 group-hover:opacity-100"
-          style={{
-            width: 42,
-            height: 42,
-            border: "2px solid rgba(184,150,12,0.0)",
-          }}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.borderColor = "rgba(184,150,12,0.6)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.borderColor = "rgba(184,150,12,0.0)")
-          }
-        />
-      </a>
     </div>
   );
 }

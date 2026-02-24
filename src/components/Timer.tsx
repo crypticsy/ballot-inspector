@@ -29,7 +29,7 @@ export default function Timer({ timeLeft, totalTime, compact = false }: Props) {
   return (
     <div className="flex flex-col items-center gap-1">
       <div className="flex items-center gap-2">
-        <FiClock style={{ color: textColor, fontSize: compact ? '0.85rem' : '1.1rem' }} className={isCritical ? 'animate-ticker' : ''} />
+        <FiClock style={{ color: textColor, fontSize: compact ? '0.85rem' : '1.1rem', display: 'block' }} className={isCritical ? 'animate-ticker' : ''} />
         <span
           className="font-mono font-bold tracking-widest"
           style={{
@@ -39,6 +39,7 @@ export default function Timer({ timeLeft, totalTime, compact = false }: Props) {
             minWidth: compact ? 50 : 68,
             textAlign: 'center',
             lineHeight: 1,
+            display: 'block',
           }}
         >
           {String(mins).padStart(2, '0')}:{String(secs).padStart(2, '0')}
