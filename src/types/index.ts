@@ -6,7 +6,8 @@ export type InvalidReason =
   | 'border_mark'
   | 'identifying_marks'
   | 'no_signature'
-  | 'torn';
+  | 'torn'
+  | 'smudged_mark';
 
 export interface Mark {
   row: number;
@@ -14,6 +15,7 @@ export interface Mark {
   isBorder?: boolean;
   borderDir?: 'right' | 'bottom';
   markStyle?: 'check' | 'cross' | 'dot' | 'scribble';
+  isSmudged?: boolean;
 }
 
 export interface BallotData {

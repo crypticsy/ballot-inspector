@@ -15,6 +15,7 @@ const INVALID_RULES: { label: string; desc: string }[] = [
   { label: 'Identifying Marks', desc: 'Name, signature, or other writing on ballot' },
   { label: 'No Signature', desc: 'Election officer signature is missing' },
   { label: 'Torn / Damaged', desc: 'Physical damage makes intent unreadable' },
+  { label: 'Smudged Mark', desc: 'Ink has spread beyond the cell — intent illegible' },
 ];
 
 export default function RulesReference() {

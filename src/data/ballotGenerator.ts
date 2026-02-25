@@ -129,6 +129,20 @@ function generateNoSignatureBallot(): BallotData {
   };
 }
 
+function generateSmudgedMarkBallot(): BallotData {
+  const mark = randomCell();
+  return {
+    id: ++ballotCounter,
+    isValid: false,
+    marks: [{ ...mark, markStyle: 'check', isSmudged: true }],
+    hasSignature: true,
+    hasTear: false,
+    invalidReason: 'smudged_mark',
+    invalidReasonDisplay:
+      'MARK IS SMUDGED OR BLOTTED — Ink has spread beyond the cell making voter intent illegible.',
+  };
+}
+
 function generateTornBallot(): BallotData {
   const mark = randomCell();
   const tearPositions = ['top-right', 'bottom-right', 'top-left'] as const;
@@ -157,6 +171,7 @@ const INVALID_GENERATORS: Generator[] = [
   generateIdentifyingMarksBallot,
   generateNoSignatureBallot,
   generateTornBallot,
+  generateSmudgedMarkBallot,
 ];
 
 export function generateBallot(): BallotData {
@@ -181,6 +196,7 @@ export function generateBallotQueue(count: number): BallotData[] {
     generateIdentifyingMarksBallot,
     generateNoSignatureBallot,
     generateTornBallot,
+    generateSmudgedMarkBallot,
   ];
   for (const gen of guaranteed) {
     ballots.push(gen());

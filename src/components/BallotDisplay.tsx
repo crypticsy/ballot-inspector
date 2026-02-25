@@ -26,18 +26,20 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
     cellH = CELL_H;
   }
 
-  const markMap = new Map<string, { isBorder?: boolean; borderDir?: string; sloppy?: boolean }>();
+  const markMap = new Map<string, { isBorder?: boolean; borderDir?: string; sloppy?: boolean; isSmudged?: boolean }>();
   for (const mark of ballot.marks) {
     markMap.set(`${mark.row}-${mark.col}`, {
       isBorder: mark.isBorder,
       borderDir: mark.borderDir,
       sloppy: ballot.sloppyMark,
+      isSmudged: mark.isSmudged,
     });
   }
 
-  const renderMark = (sloppy?: boolean, borderDir?: string, isBorder?: boolean) => {
+  const renderMark = (sloppy?: boolean, borderDir?: string, isBorder?: boolean, isSmudged?: boolean) => {
     if (isBorder && borderDir === 'right') return <span className="vote-mark-border-right">卐</span>;
     if (isBorder && borderDir === 'bottom') return <span className="vote-mark-border-bottom">卐</span>;
+    if (isSmudged) return <span className="vote-mark vote-mark-smudged">卐</span>;
     return <span className={`vote-mark ${sloppy ? 'vote-mark-sloppy' : ''}`}>卐</span>;
   };
 
@@ -121,7 +123,7 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
                 }}
               >
                 <span className="party-symbol"><PartyIcon /></span>
-                {mark && renderMark(mark.sloppy, mark.borderDir, mark.isBorder)}
+                {mark && renderMark(mark.sloppy, mark.borderDir, mark.isBorder, mark.isSmudged)}
               </div>
             );
           })
