@@ -27,7 +27,7 @@
 | **Identifying Marks** | Voter's name, initials, or writing is present |
 | **No Signature**      | Election officer's signature is missing       |
 | **Torn / Damaged**    | Physical damage makes voter intent unclear    |
-
+| **Smugged Mark**      | Ink is smeared or blurred, making the mark unclear |
 <br/>
 
 ### Prerequisites
