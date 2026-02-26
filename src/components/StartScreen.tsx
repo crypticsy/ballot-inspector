@@ -98,7 +98,7 @@ export default function StartScreen({ onStart }: Props) {
           <p
             className="text-center font-typewriter mt-6 text-white/30 text-[0.55rem] tracking-[0.1em]"
           >
-            ELECTION COMMISSION OF NEPAL · KATHMANDU, 2079 BS
+            ELECTION COMMISSION OF NEPAL · KATHMANDU, 2082 BS
           </p>
         </div>
 

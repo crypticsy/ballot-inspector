@@ -76,7 +76,7 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
       {/* Header */}
       <div className="text-center py-2 px-3 font-nepali border-b-2 border-ink">
         <p className={`font-bold leading-snug text-ink ${compact ? 'text-[0.65rem]' : 'text-[0.85rem]'}`}>
-          प्रतिनिधि सभा सदस्य निर्वाचन, २०७९
+          प्रतिनिधि सभा सदस्य निर्वाचन, २०८२
         </p>
         <p className={`leading-snug text-ink ${compact ? 'text-[0.58rem]' : 'text-[0.75rem]'}`}>
           समानुपातिक निर्वाचन प्रणालीको मतपत्र
