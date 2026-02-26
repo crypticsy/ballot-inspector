@@ -7,7 +7,8 @@ export type InvalidReason =
   | 'identifying_marks'
   | 'no_signature'
   | 'torn'
-  | 'smudged_mark';
+  | 'smudged_mark'
+  | 'fingerprint';
 
 export interface Mark {
   row: number;
@@ -27,6 +28,8 @@ export interface BallotData {
   tearPosition?: 'top-right' | 'bottom-right' | 'top-left';
   identifyingText?: string;
   identifyingPos?: { top: string; left: string };
+  hasFingerprint?: boolean;
+  fingerprintPos?: { top: string; left: string };
   invalidReason?: InvalidReason;
   invalidReasonDisplay?: string;
   // subtle trick: valid ballot with slightly sloppy-looking mark (still valid)

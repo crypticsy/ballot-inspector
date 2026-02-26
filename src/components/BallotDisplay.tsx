@@ -1,5 +1,6 @@
 import type { BallotData } from '../types';
 import { PARTY_SYMBOLS, COLS, ROWS } from '../data/parties';
+import { BsFingerprint } from 'react-icons/bs';
 
 interface Props {
   ballot: BallotData;
@@ -51,6 +52,16 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
       {ballot.hasTear && ballot.tearPosition === 'top-right' && <div className="torn-corner-tr" />}
       {ballot.hasTear && ballot.tearPosition === 'bottom-right' && <div className="torn-corner-br" />}
       {ballot.hasTear && ballot.tearPosition === 'top-left' && <div className="torn-corner-tl" />}
+
+      {/* Fingerprint stamp */}
+      {ballot.hasFingerprint && ballot.fingerprintPos && (
+        <div
+          className="fingerprint-stamp"
+          style={{ top: ballot.fingerprintPos.top, left: ballot.fingerprintPos.left }}
+        >
+          <BsFingerprint size={compact ? 48 : 62} />
+        </div>
+      )}
 
       {/* Identifying text */}
       {ballot.identifyingText && ballot.identifyingPos && (
@@ -141,7 +152,7 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
           paddingBottom: compact ? 3 : 6,
         }}
       >
-        <span className={`text-ink whitespace-nowrap ${compact ? 'text-[0.58rem]' : 'text-[0.72rem]'}`}>
+        <span className={`whitespace-nowrap ${compact ? 'text-[0.58rem]' : 'text-[0.72rem]'}`}>
           मतदान अधिकृतको दस्तखत :
         </span>
         <div
@@ -168,7 +179,7 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
                 display: 'inline-block',
               }}
             >
-              / <span style={{ fontFamily: 'serif', letterSpacing: '-0.5px' }}>निर्वाचन अधिकृत</span>
+              / <span className='font-bold' style={{ fontFamily: 'serif', letterSpacing: '-0.5px', color: '#b91c1c' }}>निर्वाचन अधिकृत</span>
             </span>
           ) : (
             <span style={{ position: 'absolute', bottom: 2, left: 4, fontSize: '0.62rem', fontFamily: 'Courier Prime, monospace', color: 'rgba(160,30,30,0.45)', letterSpacing: '0.05em' }}>

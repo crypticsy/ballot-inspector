@@ -1,5 +1,6 @@
 import { FiChevronRight, FiAlertTriangle } from 'react-icons/fi';
 import { GiStamper } from 'react-icons/gi';
+import { VALID_RULES, INVALID_RULES } from '../data/rules';
 
 interface Props {
   onStart: () => void;
@@ -17,7 +18,7 @@ export default function StartScreen({ onStart }: Props) {
         className="absolute top-0 left-0 right-0 h-1 bg-[linear-gradient(90deg,transparent,rgba(184,150,12,0.3),transparent)]"
       />
 
-      <div className="flex flex-col md:flex-row gap-6 items-start max-w-4xl w-full px-6 md:px-6 py-16 md:py-0 md:min-h-0 md:overflow-y-auto">
+      <div className="flex flex-col md:flex-row gap-6 items-start max-w-4xl w-full px-6 md:px-6 py-16 md:py-0 md:min-h-0 md:overflow-y-auto mb-0 md:mb-12 ">
         {/* LEFT: Main title panel */}
         <div
           className="flex-1 rounded p-6 bg-ink/[0.95] border border-gold/30 shadow-[0_0_40px_rgba(0,0,0,0.8)]"
@@ -103,7 +104,7 @@ export default function StartScreen({ onStart }: Props) {
 
         {/* RIGHT: Rules quick-ref */}
         <div
-          className="rounded p-5 w-full md:w-[260px] md:flex-shrink-0 bg-ink/[0.95] border border-gold/20 h-full flex flex-col justify-evenly"
+          className="rounded p-5 w-full md:w-[350px] md:flex-shrink-0 bg-ink/[0.95] border border-gold/20 h-full flex flex-col justify-evenly"
         >
           <p className="font-typewriter tracking-widest uppercase mb-4 text-gold text-[0.78rem]">
             QUICK REFERENCE
@@ -114,13 +115,7 @@ export default function StartScreen({ onStart }: Props) {
               卐 VALID IF:
             </p>
             <ul className="space-y-1.5">
-              {[
-                'One 卐 mark in one box',
-                'Clearly inside the cell',
-                'Signature present',
-                'Ballot undamaged',
-                'No identifying marks',
-              ].map((r, i) => (
+              {VALID_RULES.map((r, i) => (
                 <li key={i} className="font-typewriter text-[#7a9a7a] text-[0.78rem] leading-[1.5]">
                   · {r}
                 </li>
@@ -133,16 +128,9 @@ export default function StartScreen({ onStart }: Props) {
               ✗ INVALID IF:
             </p>
             <ul className="space-y-1.5">
-              {[
-                'Multiple marks',
-                'Blank — no mark',
-                'Mark on border',
-                'Writing/names present',
-                'No officer signature',
-                'Torn or damaged',
-              ].map((r, i) => (
+              {INVALID_RULES.map((r, i) => (
                 <li key={i} className="font-typewriter text-[#9a7070] text-[0.78rem] leading-[1.5]">
-                  · {r}
+                  · {r.label}
                 </li>
               ))}
             </ul>

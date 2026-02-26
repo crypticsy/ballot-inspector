@@ -143,6 +143,32 @@ function generateSmudgedMarkBallot(): BallotData {
   };
 }
 
+const FINGERPRINT_POSITIONS = [
+  { top: '12%', left: '62%' },
+  { top: '28%', left: '4%'  },
+  { top: '50%', left: '68%' },
+  { top: '65%', left: '18%' },
+  { top: '72%', left: '52%' },
+];
+
+function generateFingerprintBallot(): BallotData {
+  const mark = randomCell();
+  const pos = FINGERPRINT_POSITIONS[randomInt(0, FINGERPRINT_POSITIONS.length - 1)];
+  const hasValidMark = Math.random() < 0.5;
+  return {
+    id: ++ballotCounter,
+    isValid: false,
+    marks: hasValidMark ? [{ ...mark, markStyle: 'check' }] : [],
+    hasSignature: true,
+    hasTear: false,
+    hasFingerprint: true,
+    fingerprintPos: pos,
+    invalidReason: 'fingerprint',
+    invalidReasonDisplay:
+      "VOTER'S FINGERPRINT FOUND ON BALLOT — An ink thumbprint identifies the voter and invalidates the ballot.",
+  };
+}
+
 function generateTornBallot(): BallotData {
   const mark = randomCell();
   const tearPositions = ['top-right', 'bottom-right', 'top-left'] as const;
@@ -172,6 +198,7 @@ const INVALID_GENERATORS: Generator[] = [
   generateNoSignatureBallot,
   generateTornBallot,
   generateSmudgedMarkBallot,
+  generateFingerprintBallot,
 ];
 
 export function generateBallot(): BallotData {
@@ -197,6 +224,7 @@ export function generateBallotQueue(count: number): BallotData[] {
     generateNoSignatureBallot,
     generateTornBallot,
     generateSmudgedMarkBallot,
+    generateFingerprintBallot,
   ];
   for (const gen of guaranteed) {
     ballots.push(gen());

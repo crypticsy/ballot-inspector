@@ -279,6 +279,16 @@
     font-style: italic;
     text-shadow: 0 0 1px rgba(20, 20, 180, 0.25);
   }
+
+  .fingerprint-stamp {
+    position: absolute;
+    pointer-events: none;
+    z-index: 15;
+    color: rgba(140, 35, 10, 0.6);
+    transform: rotate(-18deg);
+    filter: blur(0.4px) contrast(1.1);
+    mix-blend-mode: multiply;
+  }
 }
 
 /* Scanline effect for Papers Please aesthetic */

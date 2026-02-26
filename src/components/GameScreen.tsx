@@ -326,10 +326,10 @@ export default function GameScreen({ onEnd }: Props) {
       <div className="flex flex-1 overflow-hidden md:gap-3 md:px-3 md:py-2">
         {/* Left sidebar — desktop only */}
         <div className="hidden md:flex shrink-0 flex-col gap-2 w-72">
-          <RulesReference />
-
           <FlipClock />
 
+          <RulesReference />
+          
           {/* Creator credit */}
           <a
             href="https://www.animeshbasnet.com.np/"
