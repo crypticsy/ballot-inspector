@@ -20,7 +20,7 @@ export default function RulesReference() {
       <div className="px-3 py-2 flex-1 flex flex-col justify-between">
         {/* Valid section */}
         <div>
-          <div className="flex items-center gap-1.5 mb-5 text-[#2a9a2a]">
+          <div className="flex items-center gap-1.5 mb-1.5 text-[#2a9a2a]">
             <FiCheckCircle size={13} />
             <span
               className="font-typewriter tracking-wider uppercase text-[0.7rem]"
@@ -40,7 +40,7 @@ export default function RulesReference() {
 
         {/* Invalid section */}
         <div>
-          <div className="flex items-center gap-1.5 mb-5 text-stamp-red-light">
+          <div className="flex items-center gap-1.5 mb-1.5 text-stamp-red-light">
             <FiXCircle size={13} />
             <span
               className="font-typewriter tracking-wider uppercase text-[0.7rem]"
