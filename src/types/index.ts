@@ -8,7 +8,8 @@ export type InvalidReason =
   | 'no_signature'
   | 'torn'
   | 'smudged_mark'
-  | 'fingerprint';
+  | 'fingerprint'
+  | 'mark_on_symbol';
 
 export interface Mark {
   row: number;
@@ -17,6 +18,7 @@ export interface Mark {
   borderDir?: 'right' | 'bottom';
   markStyle?: 'check' | 'cross' | 'dot' | 'scribble';
   isSmudged?: boolean;
+  isOnSymbol?: boolean;
 }
 
 export interface BallotData {

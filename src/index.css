@@ -231,6 +231,7 @@
     right: 0;
     width: 110px;
     height: 110px;
+    clip-path: polygon(100% 100%, 0 100%, 100% 0);
     z-index: 30;
   }
 
@@ -242,7 +243,7 @@
     width: 120px;
     height: 120px;
     background: #0f0805;
-    clip-path: polygon(100% 100%, 115% -15%, 100% -15%);
+    clip-path: polygon(100% 100%, -15% 100%, 100% -15%);
   }
 
   .torn-corner-tl {
@@ -251,6 +252,7 @@
     left: 0;
     width: 120px;
     height: 100px;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
     z-index: 30;
   }
 

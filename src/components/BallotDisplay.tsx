@@ -27,13 +27,14 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
     cellH = CELL_H;
   }
 
-  const markMap = new Map<string, { isBorder?: boolean; borderDir?: string; sloppy?: boolean; isSmudged?: boolean }>();
+  const markMap = new Map<string, { isBorder?: boolean; borderDir?: string; sloppy?: boolean; isSmudged?: boolean; isOnSymbol?: boolean }>();
   for (const mark of ballot.marks) {
     markMap.set(`${mark.row}-${mark.col}`, {
       isBorder: mark.isBorder,
       borderDir: mark.borderDir,
       sloppy: ballot.sloppyMark,
       isSmudged: mark.isSmudged,
+      isOnSymbol: mark.isOnSymbol,
     });
   }
 
@@ -128,13 +129,23 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
                   borderRight: col < COLS - 1 ? '1px solid #1a1208' : 'none',
                   borderBottom: row < ROWS - 1 ? '1px solid #1a1208' : 'none',
                   display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  alignItems: 'stretch',
                   overflow: mark?.isBorder ? 'visible' : 'hidden',
                 }}
               >
-                <span className="party-symbol"><PartyIcon /></span>
-                {mark && renderMark(mark.sloppy, mark.borderDir, mark.isBorder, mark.isSmudged)}
+                {/* Border marks are positioned absolute relative to the cell */}
+                {mark?.isBorder && renderMark(mark.sloppy, mark.borderDir, mark.isBorder, mark.isSmudged)}
+
+                {/* Symbol zone — left 58% */}
+                <div style={{ width: '58%', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <span className="party-symbol"><PartyIcon /></span>
+                  {mark && !mark.isBorder && mark.isOnSymbol && renderMark(mark.sloppy, undefined, false, mark.isSmudged)}
+                </div>
+
+                {/* Mark zone — right 42%, subtle divider */}
+                <div style={{ width: '42%', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', borderLeft: '1px dashed rgba(26,18,8,0.15)' }}>
+                  {mark && !mark.isBorder && !mark.isOnSymbol && renderMark(mark.sloppy, undefined, false, mark.isSmudged)}
+                </div>
               </div>
             );
           })

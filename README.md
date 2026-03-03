@@ -17,19 +17,6 @@
 
 <br/>
 
-### Invalid Ballot Types
-
-| Type                  | Description                                   |
-| --------------------- | --------------------------------------------- |
-| **Multiple Marks**    | Two or more party symbols are marked          |
-| **Blank Ballot**      | No mark made anywhere on the ballot           |
-| **Border Mark**       | Mark straddles the line between two cells     |
-| **Identifying Marks** | Voter's name, initials, or writing is present |
-| **No Signature**      | Election officer's signature is missing       |
-| **Torn / Damaged**    | Physical damage makes voter intent unclear    |
-| **Smugged Mark**      | Ink is smeared or blurred, making the mark unclear |
-<br/>
-
 ### Prerequisites
 
 - Node.js (v18 or higher)

@@ -169,6 +169,20 @@ function generateFingerprintBallot(): BallotData {
   };
 }
 
+function generateMarkOnSymbolBallot(): BallotData {
+  const mark = randomCell();
+  return {
+    id: ++ballotCounter,
+    isValid: false,
+    marks: [{ ...mark, markStyle: 'check', isOnSymbol: true }],
+    hasSignature: true,
+    hasTear: false,
+    invalidReason: 'mark_on_symbol',
+    invalidReasonDisplay:
+      'MARK IS PLACED ON THE PARTY SYMBOL — The mark must be made in the designated box, not over the symbol.',
+  };
+}
+
 function generateTornBallot(): BallotData {
   const mark = randomCell();
   const tearPositions = ['top-right', 'bottom-right', 'top-left'] as const;
@@ -199,6 +213,7 @@ const INVALID_GENERATORS: Generator[] = [
   generateTornBallot,
   generateSmudgedMarkBallot,
   generateFingerprintBallot,
+  generateMarkOnSymbolBallot,
 ];
 
 export function generateBallot(): BallotData {
@@ -225,6 +240,7 @@ export function generateBallotQueue(count: number): BallotData[] {
     generateTornBallot,
     generateSmudgedMarkBallot,
     generateFingerprintBallot,
+    generateMarkOnSymbolBallot,
   ];
   for (const gen of guaranteed) {
     ballots.push(gen());
