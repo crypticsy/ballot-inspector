@@ -167,6 +167,8 @@ export default function EndScreen({ stats, onRestart }: Props) {
                 no_signature: 'No signature',
                 torn: 'Torn ballots',
                 smudged_mark: 'Smudged marks',
+                fingerprint: 'Fingerprint',
+                mark_on_symbol: 'Mark on symbol',
               };
               return Object.entries(reasons).map(([k, v]) => (
                 <div key={k} className="mb-3">

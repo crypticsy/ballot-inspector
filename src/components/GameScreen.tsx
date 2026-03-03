@@ -5,7 +5,7 @@ import BallotDisplay from "./BallotDisplay";
 import Timer from "./Timer";
 import RulesReference from "./RulesReference";
 import FeedbackOverlay from "./FeedbackOverlay";
-import { FiCheckCircle, FiXCircle, FiFileText, FiUser } from "react-icons/fi";
+import { FiCheckCircle, FiXCircle, FiFileText, FiUser, FiPause, FiPlay, FiVolume2, FiVolumeX } from "react-icons/fi";
 import { GiStamper } from "react-icons/gi";
 import FlipClock from "./FlipClock";
 
@@ -56,9 +56,13 @@ function randomVoter(seed: number): VoterProfile {
 
 interface Props {
   onEnd: (stats: GameStats) => void;
+  onPause?: () => void;
+  onResume?: () => void;
+  muted?: boolean;
+  onToggleMute?: () => void;
 }
 
-export default function GameScreen({ onEnd }: Props) {
+export default function GameScreen({ onEnd, onPause, onResume, muted = false, onToggleMute }: Props) {
   const [ballots] = useState<BallotData[]>(() =>
     generateBallotQueue(TOTAL_BALLOTS),
   );
@@ -83,6 +87,7 @@ export default function GameScreen({ onEnd }: Props) {
   });
   const [ballotAnim, setBallotAnim] = useState<"in" | "out" | "idle">("in");
   const [locked, setLocked] = useState(false);
+  const [paused, setPaused] = useState(false);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
   const [ballotContainerHeight, setBallotContainerHeight] = useState(0);
   const ballotContainerRef = useRef<HTMLDivElement>(null);
@@ -117,9 +122,9 @@ export default function GameScreen({ onEnd }: Props) {
     return () => window.removeEventListener("resize", handler);
   }, []);
 
-  // Timer countdown
+  // Timer countdown — stops while paused
   useEffect(() => {
-    if (done || gameEndedRef.current) return;
+    if (done || gameEndedRef.current || paused) return;
     timerRef.current = setInterval(() => {
       setTimeLeft((t) => {
         if (t <= 1) {
@@ -130,7 +135,7 @@ export default function GameScreen({ onEnd }: Props) {
       });
     }, 1000);
     return () => clearInterval(timerRef.current!);
-  }, [done]);
+  }, [done, paused]);
 
   // End game — reads stats via ref so it's never stale
   useEffect(() => {
@@ -145,10 +150,24 @@ export default function GameScreen({ onEnd }: Props) {
     }
   }, [timeLeft, done, onEnd]);
 
+  const togglePause = useCallback(() => {
+    if (done || timeLeft === 0 || gameEndedRef.current) return;
+    setPaused((p) => {
+      const next = !p;
+      if (next) onPause?.();
+      else onResume?.();
+      return next;
+    });
+  }, [done, timeLeft, onPause, onResume]);
+
   // Keyboard shortcuts
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (locked) return;
+      if (e.key === "Escape" || e.key === "p" || e.key === "P") {
+        togglePause();
+        return;
+      }
+      if (locked || paused) return;
       if (e.key === "v" || e.key === "V") decide("valid");
       if (e.key === "i" || e.key === "I") decide("invalid");
     };
@@ -222,7 +241,7 @@ export default function GameScreen({ onEnd }: Props) {
     { label: "ACC.", value: `${accuracy}%`, color: "#c8b89a" },
   ];
 
-  const btnDisabled = locked || done || timeLeft === 0;
+  const btnDisabled = locked || paused || done || timeLeft === 0;
 
   return (
     <div className="h-[100dvh] w-screen desk-surface flex flex-col overflow-hidden relative">
@@ -242,11 +261,27 @@ export default function GameScreen({ onEnd }: Props) {
           </div>
         </div>
 
-        <div className="min-w-40">
+        <div className="flex items-center gap-3">
           <Timer timeLeft={timeLeft} totalTime={INITIAL_TIME} />
+          <button
+            onClick={togglePause}
+            title={paused ? "Resume [P]" : "Pause [P]"}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded font-typewriter text-[0.62rem] tracking-widest uppercase transition-colors duration-150 border border-gold/25 bg-black/20 hover:bg-gold/10 text-gold/60 hover:text-gold/90"
+          >
+            {paused ? <FiPlay size={11} /> : <FiPause size={11} />}
+            <span>{paused ? "RESUME" : "PAUSE"}</span>
+          </button>
         </div>
 
         <div className="flex items-center gap-5">
+          <button
+            onClick={onToggleMute}
+            title={muted ? "Unmute music" : "Mute music"}
+            className="flex items-center justify-center w-7 h-7 rounded border border-gold/25 bg-black/20 hover:bg-gold/10 transition-colors duration-150"
+            style={{ color: muted ? 'rgba(184,150,12,0.3)' : 'rgba(184,150,12,0.65)' }}
+          >
+            {muted ? <FiVolumeX size={13} /> : <FiVolume2 size={13} />}
+          </button>
           {statsItems.map(({ label, value, color }) => (
             <div key={label} className="text-center">
               <p className="font-typewriter text-[#5a4a3a] text-[0.65rem] tracking-[0.08em]">
@@ -272,9 +307,6 @@ export default function GameScreen({ onEnd }: Props) {
       >
         <div className="flex items-center gap-1 shrink-0 pt-[6px]">
           <GiStamper size={13} className="text-gold" />
-          <p className="font-typewriter tracking-widest uppercase text-gold text-[0.49rem]">
-            Election Commission
-          </p>
         </div>
         <div className="flex items-center gap-3 pt-[6px]">
           {statsItems.map(({ label, value, color }) => (
@@ -291,8 +323,23 @@ export default function GameScreen({ onEnd }: Props) {
             </div>
           ))}
         </div>
-        <div className="pt-[6px]">
+        <div className="flex items-center gap-2 pt-[6px]">
           <Timer timeLeft={timeLeft} totalTime={INITIAL_TIME} compact />
+          <button
+            onClick={togglePause}
+            title={paused ? "Resume" : "Pause"}
+            className="flex items-center justify-center w-6 h-6 rounded border border-gold/25 bg-black/20 text-gold/60 active:bg-gold/10"
+          >
+            {paused ? <FiPlay size={10} /> : <FiPause size={10} />}
+          </button>
+          <button
+            onClick={onToggleMute}
+            title={muted ? "Unmute" : "Mute"}
+            className="flex items-center justify-center w-6 h-6 rounded border border-gold/25 bg-black/20 active:bg-gold/10"
+            style={{ color: muted ? 'rgba(184,150,12,0.3)' : 'rgba(184,150,12,0.6)' }}
+          >
+            {muted ? <FiVolumeX size={10} /> : <FiVolume2 size={10} />}
+          </button>
         </div>
       </div>
 
@@ -370,7 +417,7 @@ export default function GameScreen({ onEnd }: Props) {
                 }`}
               >
                 <div
-                  className={`${feedback.show ? "opacity-10" : "opacity-100"} transition-opacity duration-200`}
+                  className={`${feedback.show || paused ? "opacity-10" : "opacity-100"} transition-opacity duration-200`}
                 >
                   <BallotDisplay
                     ballot={currentBallot}
@@ -388,6 +435,28 @@ export default function GameScreen({ onEnd }: Props) {
                   message={feedback.message}
                   onDone={handleFeedbackDone}
                 />
+
+                {/* Pause overlay */}
+                {paused && (
+                  <div
+                    className="absolute inset-0 flex flex-col items-center justify-center gap-4 rounded"
+                    style={{ background: 'rgba(10,5,2,0.82)', backdropFilter: 'blur(2px)', zIndex: 50 }}
+                  >
+                    <p className="font-typewriter tracking-[0.3em] uppercase text-gold text-[0.7rem]">
+                      — SHIFT SUSPENDED —
+                    </p>
+                    <button
+                      onClick={togglePause}
+                      className="flex items-center gap-2 px-5 py-2.5 rounded font-typewriter tracking-[0.2em] uppercase text-[0.78rem] border-2 border-gold text-gold bg-gold/10 hover:bg-gold/20 transition-colors duration-150"
+                    >
+                      <FiPlay size={14} />
+                      RESUME
+                    </button>
+                    <p className="font-typewriter text-[#5a4a3a] text-[0.58rem] tracking-[0.1em]">
+                      [P] or [ESC]
+                    </p>
+                  </div>
+                )}
               </div>
             )}
           </div>

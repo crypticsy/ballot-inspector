@@ -3,6 +3,7 @@ import type { GameState, GameStats } from './types';
 import StartScreen from './components/StartScreen';
 import GameScreen from './components/GameScreen';
 import EndScreen from './components/EndScreen';
+import { useMusic } from './hooks/useMusic';
 
 const FADE_MS = 350;
 
@@ -32,9 +33,11 @@ export default function App() {
     }, FADE_MS);
   }, []);
 
-  const handleStart    = useCallback(() => go('playing'), [go]);
-  const handleEnd      = useCallback((stats: GameStats) => go('end', stats), [go]);
-  const handleRestart  = useCallback(() => go('start'), [go]);
+  const handleStart   = useCallback(() => go('playing'), [go]);
+  const handleEnd     = useCallback((stats: GameStats) => go('end', stats), [go]);
+  const handleRestart = useCallback(() => go('start'), [go]);
+
+  const { muted, toggleMute, pauseMusic, resumeMusic } = useMusic();
 
   return (
     <div
@@ -46,7 +49,16 @@ export default function App() {
       }}
     >
       {screen === 'start' && <StartScreen onStart={handleStart} />}
-      {screen === 'playing' && <GameScreen key={gameKeyRef.current} onEnd={handleEnd} />}
+      {screen === 'playing' && (
+        <GameScreen
+          key={gameKeyRef.current}
+          onEnd={handleEnd}
+          onPause={pauseMusic}
+          onResume={resumeMusic}
+          muted={muted}
+          onToggleMute={toggleMute}
+        />
+      )}
       {screen === 'end' && finalStats && <EndScreen stats={finalStats} onRestart={handleRestart} />}
     </div>
   );
