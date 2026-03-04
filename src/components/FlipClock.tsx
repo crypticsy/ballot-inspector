@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const ELECTION_DATE = new Date('2026-03-05T00:00:00+05:45');
+const ELECTION_DATE = new Date('2026-03-05T12:00:00+05:45');
 const CARD_H = 52;   // full card height px
 const HALF   = 26;   // each half px
 

@@ -45,7 +45,7 @@ export default function EndScreen({ stats, onRestart }: Props) {
               <GiStamper size={28} className="text-gold" />
               <div>
                 <p className="font-typewriter tracking-widest uppercase text-gold text-[0.78rem]">
-                  Election Commission of Nepal
+                  Ballot Inspector
                 </p>
                 <p className="font-typewriter text-[#5a4a3a] text-[0.65rem]">
                   END OF SHIFT · PERFORMANCE REPORT
@@ -204,6 +204,37 @@ export default function EndScreen({ stats, onRestart }: Props) {
                   <span style={{ color: c as string }}>{g}</span> — {t}
                 </p>
               ))}
+            </div>
+
+            <div className="mt-5 pt-4 border-t border-gold/10">
+              <p className="font-typewriter text-white/30 text-[0.6rem] tracking-widest uppercase mb-2">
+                Resources
+              </p>
+              <ul className="grid grid-cols-2 gap-x-3 gap-y-1">
+                <li>
+                  <a
+                    href="https://votefornepal.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-typewriter text-gold/50 text-[0.72rem] hover:text-gold/80 transition-colors duration-150 underline underline-offset-2"
+                  >
+                    votefornepal.org
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.chunab.org/home"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-typewriter text-gold/50 text-[0.72rem] hover:text-gold/80 transition-colors duration-150 underline underline-offset-2"
+                  >
+                    chunab.org
+                  </a>
+                </li>
+              </ul>
+              <p className="font-typewriter mt-3 text-white/20 text-[0.55rem] tracking-[0.08em]">
+                This is a fictional game inspired by Nepal's election process.
+              </p>
             </div>
           </div>
 

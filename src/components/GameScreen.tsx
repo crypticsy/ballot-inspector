@@ -55,13 +55,14 @@ function randomVoter(seed: number): VoterProfile {
 
 interface Props {
   onEnd: (stats: GameStats) => void;
+  onHome?: () => void;
   onPause?: () => void;
   onResume?: () => void;
   muted?: boolean;
   onToggleMute?: () => void;
 }
 
-export default function GameScreen({ onEnd, onPause, onResume, muted = false, onToggleMute }: Props) {
+export default function GameScreen({ onEnd, onHome, onPause, onResume, muted = false, onToggleMute }: Props) {
   const [ballots] = useState<BallotData[]>(() =>
     generateBallotQueue(TOTAL_BALLOTS),
   );
@@ -247,18 +248,22 @@ export default function GameScreen({ onEnd, onPause, onResume, muted = false, on
       <div className="scanlines" />
 
       {/* ── Desktop Top bar ── */}
-      <div className="hidden md:flex items-center justify-between px-5 py-3 shrink-0 bg-desk/[0.97] border-b border-gold/25">
-        <div className="flex items-center gap-3">
+      <div className="hidden md:flex items-center justify-between px-8 py-4 shrink-0 bg-desk/[0.97] border-b border-gold/25">
+        <button
+          onClick={onHome}
+          className="flex items-center gap-4 group hover:opacity-75 transition-opacity duration-150"
+          title="Back to home"
+        >
           <GiStamper size={22} className="text-gold" />
-          <div>
-            <p className="font-typewriter tracking-widest uppercase text-gold text-[0.72rem]">
-              Election Commission · Nepal
+          <div className="text-left">
+            <p className="font-typewriter tracking-widest uppercase text-gold text-[0.78rem]">
+              Ballot Inspector
             </p>
-            <p className="font-typewriter text-[#5a4a3a] text-[0.65rem]">
+            <p className="font-typewriter text-[#5a4a3a] text-[0.68rem] mt-0.5">
               Ballot Validation Station
             </p>
           </div>
-        </div>
+        </button>
 
         <div className="flex items-center gap-6">
           <button
@@ -303,9 +308,13 @@ export default function GameScreen({ onEnd, onPause, onResume, muted = false, on
           paddingTop: "env(safe-area-inset-top)",
         }}
       >
-        <div className="flex items-center gap-1 shrink-0 pt-[10px]">
+        <button
+          onClick={onHome}
+          className="flex items-center gap-1 shrink-0 pt-[10px] hover:opacity-75 transition-opacity duration-150"
+          title="Back to home"
+        >
           <GiStamper size={15} className="text-gold" />
-        </div>
+        </button>
         <div className="flex items-center gap-4 pt-[10px]">
           {statsItems.map(({ label, value, color }) => (
             <div key={label} className="text-center">
@@ -518,14 +527,6 @@ export default function GameScreen({ onEnd, onPause, onResume, muted = false, on
                 <p className="font-mono text-[#4a3a28] text-[0.6rem] tracking-[0.1em]">
                   {voter.voterId}
                 </p>
-              </div>
-
-              <div className="w-full flex items-center justify-center gap-1.5">
-                <FiFileText size={11} className="text-[#5a4a3a]" />
-                <span className="font-typewriter text-[0.66rem] text-[#7a6a5a]">
-                  Ballot {Math.min(currentIdx + 1, ballots.length)} of{" "}
-                  {ballots.length}
-                </span>
               </div>
             </div>
           </div>

@@ -61,56 +61,86 @@ export default function StartScreen({ onStart }: Props) {
               </ul>
             </div>
           </div>
+
+
+            {/* Resources */}
+            <div className="mt-4 pt-4 border-t border-white/[0.06]">
+              <p className="font-typewriter text-white/30 text-[0.6rem] tracking-widest uppercase mb-2">
+                IRL Resources
+              </p>
+              <ul className="grid grid-cols-2 gap-x-3 gap-y-1">
+                <li>
+                  <a
+                    href="https://votefornepal.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-typewriter text-gold/50 text-[0.72rem] hover:text-gold/80 transition-colors duration-150 underline underline-offset-2"
+                  >
+                    votefornepal.org
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.chunab.org/home"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-typewriter text-gold/50 text-[0.72rem] hover:text-gold/80 transition-colors duration-150 underline underline-offset-2"
+                  >
+                    chunab.org
+                  </a>
+                </li>
+              </ul>
+            </div>
         </div>
 
         {/* RIGHT: Ballot Inspector */}
         <div className="order-1 md:order-2 flex-1 rounded p-6 bg-ink/[0.95] border border-gold/30 shadow-[0_0_40px_rgba(0,0,0,0.8)] flex flex-col">
           {/* Header logo */}
-          <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gold/20">
-            <GiStamper size={28} className="animate-flicker text-gold" />
+          <div className="flex items-center gap-4 mb-6 pb-4 border-b border-gold/20">
+            <GiStamper size={32} className="animate-flicker text-gold shrink-0" />
             <div>
-              <p className="font-typewriter tracking-widest uppercase text-xs text-gold">
-                Election Commission, Nepal
+              <p className="font-typewriter tracking-widest uppercase text-sm text-gold">
+                Ballot Inspector
               </p>
-              <p className="font-nepali font-bold text-gold-light text-[0.8rem]">
-                निर्वाचन आयोग नेपाल
+              <p className="font-nepali font-bold text-gold-light text-[0.85rem] mt-0.5">
+                मतपत्र परीक्षण खेल
               </p>
             </div>
           </div>
 
           {/* Title */}
-          <div className="mb-5">
-            <h1 className="font-typewriter text-2xl md:text-3xl font-bold tracking-widest uppercase text-paper leading-[1.1] mb-1">
+          <div className="mb-6">
+            <h1 className="font-typewriter text-2xl md:text-3xl font-bold tracking-widest uppercase text-paper leading-[1.1] mb-2">
               BALLOT INSPECTOR
             </h1>
-            <p className="font-nepali text-[#9a8870] text-[0.75rem]">
+            <p className="font-nepali text-[#9a8870] text-[0.8rem]">
               मतपत्र परीक्षक — मतगणना विभाग
             </p>
           </div>
 
           {/* Story text */}
-          <div className="mb-5 p-3 rounded bg-black/30 border border-white/[0.04]">
+          <div className="mb-6 p-4 rounded bg-black/30 border border-white/[0.04]">
             <p className="font-typewriter text-[#9a8870] text-[0.82rem] leading-[1.7]">
               You have been assigned to the{' '}
               <span className="text-[#c8b89a]">Ballot Validation Station</span> of the
               Election Commission of Nepal.
             </p>
-            <p className="font-typewriter mt-2 text-[#9a8870] text-[0.82rem] leading-[1.7]">
+            <p className="font-typewriter mt-3 text-[#9a8870] text-[0.82rem] leading-[1.7]">
               Your duty: examine each{' '}
               <span className="text-[#c8b89a]">Proportional Representation ballot</span>{' '}
               and determine whether it is{' '}
               <span className="text-[#22cc44]">VALID</span> or{' '}
               <span className="text-[#ee3333]">INVALID</span> before time runs out.
             </p>
-            <p className="font-typewriter mt-2 text-[#9a8870] text-[0.82rem] leading-[1.7]">
+            <p className="font-typewriter mt-3 text-[#9a8870] text-[0.82rem] leading-[1.7]">
               The integrity of the election depends on your accuracy.
             </p>
           </div>
 
           {/* Warning */}
-          <div className="flex items-start gap-2 mb-5 p-2 rounded bg-stamp-red/10 border border-stamp-red/25">
-            <FiAlertTriangle size={12} className="text-[#cc3333] mt-[2px] shrink-0" />
-            <p className="font-typewriter text-[#cc9988] text-[0.78rem] leading-[1.5]">
+          <div className="flex items-start gap-3 mb-6 p-3 rounded bg-stamp-red/10 border border-stamp-red/25">
+            <FiAlertTriangle size={13} className="text-[#cc3333] mt-[2px] shrink-0" />
+            <p className="font-typewriter text-[#cc9988] text-[0.78rem] leading-[1.6]">
               Wrong decisions cost{' '}
               <span className="text-[#ff6666]">−8 seconds</span>. Each correct decision earns{' '}
               <span className="text-[#66cc66]">+2 seconds</span>. The shift ends when time expires.
@@ -120,15 +150,15 @@ export default function StartScreen({ onStart }: Props) {
           {/* Start button */}
           <button
             onClick={onStart}
-            className="w-full flex items-center justify-center gap-3 py-3 rounded font-typewriter tracking-[0.25em] uppercase transition-all duration-200 bg-gold/[0.12] border-2 border-gold text-gold-light text-[0.85rem] shadow-[0_0_20px_rgba(184,150,12,0.1)] hover:bg-gold/[0.22] hover:shadow-[0_0_30px_rgba(184,150,12,0.2)]"
+            className="w-full flex items-center justify-center gap-3 py-4 rounded font-typewriter tracking-[0.25em] uppercase transition-all duration-200 bg-gold/[0.12] border-2 border-gold text-gold-light text-[0.85rem] shadow-[0_0_20px_rgba(184,150,12,0.1)] hover:bg-gold/[0.22] hover:shadow-[0_0_30px_rgba(184,150,12,0.2)]"
           >
             <span>REPORT FOR DUTY</span>
             <FiChevronRight size={16} />
           </button>
 
-          {/* Flavour footer */}
-          <p className="text-center font-typewriter mt-auto pt-6 text-white/30 text-[0.55rem] tracking-[0.1em]">
-            ELECTION COMMISSION OF NEPAL · KATHMANDU, 2082 BS
+          {/* Disclaimer */}
+          <p className="mt-auto pt-5 font-typewriter text-white/20 text-[0.55rem] tracking-[0.08em] text-center">
+            This is a fictional game inspired by Nepal's election process.
           </p>
         </div>
       </div>

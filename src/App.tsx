@@ -36,6 +36,7 @@ export default function App() {
   const handleStart   = useCallback(() => go('playing'), [go]);
   const handleEnd     = useCallback((stats: GameStats) => go('end', stats), [go]);
   const handleRestart = useCallback(() => go('start'), [go]);
+  const handleHome    = useCallback(() => go('start'), [go]);
 
   const { muted, toggleMute, pauseMusic, resumeMusic } = useMusic();
 
@@ -53,6 +54,7 @@ export default function App() {
         <GameScreen
           key={gameKeyRef.current}
           onEnd={handleEnd}
+          onHome={handleHome}
           onPause={pauseMusic}
           onResume={resumeMusic}
           muted={muted}
