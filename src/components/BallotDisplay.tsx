@@ -27,7 +27,7 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
     cellH = CELL_H;
   }
 
-  const markMap = new Map<string, { isBorder?: boolean; borderDir?: string; sloppy?: boolean; isSmudged?: boolean; isOnSymbol?: boolean }>();
+  const markMap = new Map<string, { isBorder?: boolean; borderDir?: string; sloppy?: boolean; isSmudged?: boolean; isOnSymbol?: boolean; isDouble?: boolean }>();
   for (const mark of ballot.marks) {
     markMap.set(`${mark.row}-${mark.col}`, {
       isBorder: mark.isBorder,
@@ -35,13 +35,20 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
       sloppy: ballot.sloppyMark,
       isSmudged: mark.isSmudged,
       isOnSymbol: mark.isOnSymbol,
+      isDouble: mark.isDouble,
     });
   }
 
-  const renderMark = (sloppy?: boolean, borderDir?: string, isBorder?: boolean, isSmudged?: boolean) => {
+  const renderMark = (sloppy?: boolean, borderDir?: string, isBorder?: boolean, isSmudged?: boolean, isDouble?: boolean) => {
     if (isBorder && borderDir === 'right') return <span className="vote-mark-border-right">卐</span>;
     if (isBorder && borderDir === 'bottom') return <span className="vote-mark-border-bottom">卐</span>;
     if (isSmudged) return <span className="vote-mark vote-mark-smudged">卐</span>;
+    if (isDouble) return (
+      <>
+        <span className="vote-mark" style={{ transform: 'translate(calc(-50% - 2px), calc(-50% - 2px)) rotate(-5deg)', opacity: 0.7 }}>卐</span>
+        <span className="vote-mark" style={{ transform: 'translate(calc(-50% + 2px), calc(-50% + 2px)) rotate(4deg)', opacity: 0.9 }}>卐</span>
+      </>
+    );
     return <span className={`vote-mark ${sloppy ? 'vote-mark-sloppy' : ''}`}>卐</span>;
   };
 
@@ -139,12 +146,12 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
                 {/* Symbol zone — left 58% */}
                 <div style={{ width: '58%', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <span className="party-symbol"><PartyIcon /></span>
-                  {mark && !mark.isBorder && mark.isOnSymbol && renderMark(mark.sloppy, undefined, false, mark.isSmudged)}
+                  {mark && !mark.isBorder && mark.isOnSymbol && renderMark(mark.sloppy, undefined, false, mark.isSmudged, mark.isDouble)}
                 </div>
 
                 {/* Mark zone — right 42%, subtle divider */}
                 <div style={{ width: '42%', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', borderLeft: '1px dashed rgba(26,18,8,0.15)' }}>
-                  {mark && !mark.isBorder && !mark.isOnSymbol && renderMark(mark.sloppy, undefined, false, mark.isSmudged)}
+                  {mark && !mark.isBorder && !mark.isOnSymbol && renderMark(mark.sloppy, undefined, false, mark.isSmudged, mark.isDouble)}
                 </div>
               </div>
             );
@@ -180,19 +187,20 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
             <span
               style={{
                 position: 'absolute',
-                bottom: 1,
+                bottom: -2,
                 left: '50%',
-                transform: 'translateX(-50%) rotate(-2deg)',
-                fontSize: compact ? '0.6rem' : '0.78rem',
-                fontFamily: 'Courier Prime, cursive',
-                color: '#1a1208',
-                fontStyle: 'italic',
-                opacity: 0.85,
+                transform: 'translateX(-50%) rotate(-3deg)',
+                fontSize: compact ? '0.85rem' : '1.4rem',
+                fontFamily: "'Mr De Haviland', cursive",
+                color: '#b91c1c',
+                fontStyle: 'bold',
+                opacity: 0.9,
                 display: 'inline-block',
                 whiteSpace: 'nowrap',
+                letterSpacing: '0.02em',
               }}
             >
-              / <span className='font-bold' style={{ fontFamily: 'serif', letterSpacing: '-0.5px', color: '#b91c1c' }}>निर्वाचन अधिकृत</span>
+              Zorvex Trelon
             </span>
           ) : (
             <span style={{ position: 'absolute', bottom: 2, left: '50%', transform: 'translateX(-50%)', fontSize: '0.62rem', fontFamily: 'Courier Prime, monospace', color: 'rgba(160,30,30,0.45)', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>

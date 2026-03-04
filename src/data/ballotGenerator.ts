@@ -1,5 +1,6 @@
 import type { BallotData, Mark } from '../types';
 import { TOTAL_CELLS, COLS, ROWS, indexToCell } from './parties';
+import { DEV_MODE, ENABLED_BALLOT_TYPES } from '../config/devConfig';
 
 let ballotCounter = 0;
 
@@ -183,6 +184,20 @@ function generateMarkOnSymbolBallot(): BallotData {
   };
 }
 
+function generateDoubleStampBallot(): BallotData {
+  const mark = randomCell();
+  return {
+    id: ++ballotCounter,
+    isValid: false,
+    marks: [{ ...mark, markStyle: 'check', isDouble: true }],
+    hasSignature: true,
+    hasTear: false,
+    invalidReason: 'double_stamp',
+    invalidReasonDisplay:
+      'TWO MARKS STAMPED IN THE SAME BOX — A cell marked more than once indicates tampering or voter confusion.',
+  };
+}
+
 function generateTornBallot(): BallotData {
   const mark = randomCell();
   const tearPositions = ['top-right', 'bottom-right', 'top-left'] as const;
@@ -203,45 +218,53 @@ function generateTornBallot(): BallotData {
 
 type Generator = () => BallotData;
 
-const INVALID_GENERATORS: Generator[] = [
-  generateMultipleMarksBallot,
-  generateMultipleMarksBallot, // weighted double for frequency
-  generateBlankBallot,
-  generateBorderMarkBallot,
-  generateIdentifyingMarksBallot,
-  generateNoSignatureBallot,
-  generateTornBallot,
-  generateSmudgedMarkBallot,
-  generateFingerprintBallot,
-  generateMarkOnSymbolBallot,
+const ALL_INVALID_GENERATORS: { key: keyof typeof ENABLED_BALLOT_TYPES; fn: Generator; weight?: number }[] = [
+  { key: 'multiple_marks', fn: generateMultipleMarksBallot, weight: 2 },
+  { key: 'blank', fn: generateBlankBallot },
+  { key: 'border_mark', fn: generateBorderMarkBallot },
+  { key: 'identifying_marks', fn: generateIdentifyingMarksBallot },
+  { key: 'no_signature', fn: generateNoSignatureBallot },
+  { key: 'torn', fn: generateTornBallot },
+  { key: 'smudged_mark', fn: generateSmudgedMarkBallot },
+  { key: 'fingerprint', fn: generateFingerprintBallot },
+  { key: 'mark_on_symbol', fn: generateMarkOnSymbolBallot },
+  { key: 'double_stamp', fn: generateDoubleStampBallot },
 ];
 
+function getEnabledInvalidGenerators(): Generator[] {
+  const result: Generator[] = [];
+  for (const entry of ALL_INVALID_GENERATORS) {
+    if (!DEV_MODE || ENABLED_BALLOT_TYPES[entry.key]) {
+      const times = entry.weight ?? 1;
+      for (let i = 0; i < times; i++) result.push(entry.fn);
+    }
+  }
+  return result;
+}
+
 export function generateBallot(): BallotData {
-  // 45% valid, 55% invalid
-  if (Math.random() < 0.45) {
+  const invalidGens = getEnabledInvalidGenerators();
+  // 45% valid, 55% invalid — but only if valid type is enabled
+  const validEnabled = !DEV_MODE || ENABLED_BALLOT_TYPES.valid;
+  if (validEnabled && (invalidGens.length === 0 || Math.random() < 0.45)) {
     return generateValidBallot();
   }
-  const gen = INVALID_GENERATORS[randomInt(0, INVALID_GENERATORS.length - 1)];
+  if (invalidGens.length === 0) return generateValidBallot();
+  const gen = invalidGens[randomInt(0, invalidGens.length - 1)];
   return gen();
 }
 
 export function generateBallotQueue(count: number): BallotData[] {
   ballotCounter = 0;
   const ballots: BallotData[] = [];
-  // Ensure at least some of each type
-  const guaranteed: Generator[] = [
-    generateValidBallot,
-    generateValidBallot,
-    generateMultipleMarksBallot,
-    generateBlankBallot,
-    generateBorderMarkBallot,
-    generateIdentifyingMarksBallot,
-    generateNoSignatureBallot,
-    generateTornBallot,
-    generateSmudgedMarkBallot,
-    generateFingerprintBallot,
-    generateMarkOnSymbolBallot,
-  ];
+  const validEnabled = !DEV_MODE || ENABLED_BALLOT_TYPES.valid;
+
+  // Ensure at least one of each enabled type
+  const guaranteed: Generator[] = [];
+  if (validEnabled) guaranteed.push(generateValidBallot, generateValidBallot);
+  for (const entry of ALL_INVALID_GENERATORS) {
+    if (!DEV_MODE || ENABLED_BALLOT_TYPES[entry.key]) guaranteed.push(entry.fn);
+  }
   for (const gen of guaranteed) {
     ballots.push(gen());
   }
