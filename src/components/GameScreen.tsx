@@ -7,7 +7,6 @@ import RulesReference from "./RulesReference";
 import FeedbackOverlay from "./FeedbackOverlay";
 import { FiCheckCircle, FiXCircle, FiFileText, FiUser, FiPause, FiPlay, FiVolume2, FiVolumeX } from "react-icons/fi";
 import { GiStamper } from "react-icons/gi";
-import FlipClock from "./FlipClock";
 
 const TOTAL_BALLOTS = 25;
 const INITIAL_TIME = 120;
@@ -261,27 +260,26 @@ export default function GameScreen({ onEnd, onPause, onResume, muted = false, on
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Timer timeLeft={timeLeft} totalTime={INITIAL_TIME} />
+        <div className="flex items-center gap-6">
           <button
             onClick={togglePause}
             title={paused ? "Resume [P]" : "Pause [P]"}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded font-typewriter text-[0.62rem] tracking-widest uppercase transition-colors duration-150 border border-gold/25 bg-black/20 hover:bg-gold/10 text-gold/60 hover:text-gold/90"
+            className="flex items-center justify-center w-7 h-7 rounded border border-gold/25 bg-black/20 hover:bg-gold/10 transition-colors duration-150 text-gold/60 hover:text-gold"
           >
-            {paused ? <FiPlay size={11} /> : <FiPause size={11} />}
-            <span>{paused ? "RESUME" : "PAUSE"}</span>
+            {paused ? <FiPlay size={13} /> : <FiPause size={13} />}
+          </button>
+          <Timer timeLeft={timeLeft} totalTime={INITIAL_TIME} />
+          <button
+            onClick={onToggleMute}
+            title={muted ? "Unmute music" : "Mute music"}
+            className="flex items-center justify-center w-7 h-7 rounded border border-gold/25 bg-black/20 hover:bg-gold/10 transition-colors duration-150 text-gold/60 hover:text-gold"
+            style={{ color: muted ? 'rgba(184,150,12,0.3)' : undefined }}
+          >
+            {muted ? <FiVolumeX size={13} /> : <FiVolume2 size={13} />}
           </button>
         </div>
 
         <div className="flex items-center gap-5">
-          <button
-            onClick={onToggleMute}
-            title={muted ? "Unmute music" : "Mute music"}
-            className="flex items-center justify-center w-7 h-7 rounded border border-gold/25 bg-black/20 hover:bg-gold/10 transition-colors duration-150"
-            style={{ color: muted ? 'rgba(184,150,12,0.3)' : 'rgba(184,150,12,0.65)' }}
-          >
-            {muted ? <FiVolumeX size={13} /> : <FiVolume2 size={13} />}
-          </button>
           {statsItems.map(({ label, value, color }) => (
             <div key={label} className="text-center">
               <p className="font-typewriter text-[#5a4a3a] text-[0.65rem] tracking-[0.08em]">
@@ -300,22 +298,22 @@ export default function GameScreen({ onEnd, onPause, onResume, muted = false, on
 
       {/* ── Mobile Top bar — single row: brand | stats | timer ── */}
       <div
-        className="flex md:hidden items-center justify-between shrink-0 px-3 gap-2 bg-desk/[0.97] border-b border-gold/25 pb-[6px]"
+        className="flex md:hidden items-center justify-between shrink-0 px-3 gap-2 bg-desk/[0.97] border-b border-gold/25 pb-[10px]"
         style={{
           paddingTop: "env(safe-area-inset-top)",
         }}
       >
-        <div className="flex items-center gap-1 shrink-0 pt-[6px]">
-          <GiStamper size={13} className="text-gold" />
+        <div className="flex items-center gap-1 shrink-0 pt-[10px]">
+          <GiStamper size={15} className="text-gold" />
         </div>
-        <div className="flex items-center gap-3 pt-[6px]">
+        <div className="flex items-center gap-4 pt-[10px]">
           {statsItems.map(({ label, value, color }) => (
             <div key={label} className="text-center">
-              <p className="font-typewriter text-[#5a4a3a] text-[0.4rem] tracking-[0.04em]">
+              <p className="font-typewriter text-[#5a4a3a] text-[0.48rem] tracking-[0.04em]">
                 {label}
               </p>
               <p
-                className="font-mono font-bold text-[0.78rem] leading-none"
+                className="font-mono font-bold text-[0.88rem] leading-none"
                 style={{ color }}
               >
                 {value}
@@ -323,47 +321,47 @@ export default function GameScreen({ onEnd, onPause, onResume, muted = false, on
             </div>
           ))}
         </div>
-        <div className="flex items-center gap-2 pt-[6px]">
+        <div className="flex items-center gap-4 pt-[10px]">
           <Timer timeLeft={timeLeft} totalTime={INITIAL_TIME} compact />
           <button
             onClick={togglePause}
             title={paused ? "Resume" : "Pause"}
-            className="flex items-center justify-center w-6 h-6 rounded border border-gold/25 bg-black/20 text-gold/60 active:bg-gold/10"
+            className="flex items-center justify-center w-7 h-7 rounded border border-gold/25 bg-black/20 text-gold/60 active:bg-gold/10"
           >
-            {paused ? <FiPlay size={10} /> : <FiPause size={10} />}
+            {paused ? <FiPlay size={11} /> : <FiPause size={11} />}
           </button>
           <button
             onClick={onToggleMute}
             title={muted ? "Unmute" : "Mute"}
-            className="flex items-center justify-center w-6 h-6 rounded border border-gold/25 bg-black/20 active:bg-gold/10"
+            className="flex items-center justify-center w-7 h-7 rounded border border-gold/25 bg-black/20 active:bg-gold/10"
             style={{ color: muted ? 'rgba(184,150,12,0.3)' : 'rgba(184,150,12,0.6)' }}
           >
-            {muted ? <FiVolumeX size={10} /> : <FiVolume2 size={10} />}
+            {muted ? <FiVolumeX size={11} /> : <FiVolume2 size={11} />}
           </button>
         </div>
       </div>
 
       {/* ── Mobile Voter Strip ── */}
-      <div className="flex md:hidden shrink-0 items-center gap-3 px-3 py-2 bg-[rgba(20,12,5,0.95)] border-b border-gold/[0.15]">
-        <div className="text-[1.85rem] leading-none grayscale brightness-[0.72] contrast-[1.1] select-none shrink-0">
+      <div className="flex md:hidden shrink-0 items-center gap-3 px-3 py-3 bg-[rgba(20,12,5,0.95)] border-b border-gold/[0.15]">
+        <div className="text-[2.2rem] leading-none grayscale brightness-[0.72] contrast-[1.1] select-none shrink-0">
           {voter.face}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="font-typewriter font-bold truncate text-[#d4c8b0] text-[0.66rem]">
+          <p className="font-typewriter font-bold truncate text-[#d4c8b0] text-[0.72rem]">
             {voter.name}
           </p>
-          <p className="font-typewriter text-[#5a4a3a] text-[0.54rem]">
+          <p className="font-typewriter text-[#5a4a3a] text-[0.6rem]">
             Age {voter.age} · {voter.district}
           </p>
         </div>
         <div className="rounded px-2 py-1 shrink-0 bg-black/40 border border-white/[0.04]">
-          <p className="font-mono text-[#4a3a28] text-[0.5rem] tracking-[0.08em]">
+          <p className="font-mono text-[#4a3a28] text-[0.55rem] tracking-[0.08em]">
             {voter.voterId}
           </p>
         </div>
         <div className="flex items-center gap-1 shrink-0">
-          <FiFileText size={11} className="text-[#5a4a3a]" />
-          <span className="font-typewriter text-[0.66rem] text-[#7a6a5a]">
+          <FiFileText size={12} className="text-[#5a4a3a]" />
+          <span className="font-typewriter text-[0.72rem] text-[#7a6a5a]">
             {Math.min(currentIdx + 1, ballots.length)}/{ballots.length}
           </span>
         </div>
@@ -372,9 +370,7 @@ export default function GameScreen({ onEnd, onPause, onResume, muted = false, on
       {/* ── Main content ── */}
       <div className="flex flex-1 overflow-hidden md:gap-3 md:px-3 md:py-2">
         {/* Left sidebar — desktop only */}
-        <div className="hidden md:flex shrink-0 flex-col gap-2 w-[19rem]">
-          <FlipClock />
-
+        <div className="hidden md:flex shrink-0 flex-col gap-2 w-[15rem]">
           <RulesReference />
           
           {/* Creator credit */}
@@ -408,7 +404,7 @@ export default function GameScreen({ onEnd, onPause, onResume, muted = false, on
           >
             {currentBallot && !gameEndedRef.current && (
               <div
-                className={`relative max-w-[460px] w-full px-2 md:px-0 ${
+                className={`relative max-w-[540px] w-full px-2 md:px-0 ${
                   ballotAnim === "in"
                     ? "animate-slideIn"
                     : ballotAnim === "out"
@@ -461,14 +457,11 @@ export default function GameScreen({ onEnd, onPause, onResume, muted = false, on
             )}
           </div>
 
-          <p className="hidden md:block font-typewriter shrink-0 py-2 text-amber-300/50 text-[0.72rem] tracking-[0.12em]">
-            Press [V] for VALID · [I] for INVALID
-          </p>
         </div>
 
         {/* Right sidebar — desktop only */}
         <div className="hidden md:flex shrink-0 flex-col items-center gap-2 w-[195px]">
-          {/* Ballot progress tracker */}
+            {/* Ballot progress tracker */}
           <div className="w-full px-3 py-3 rounded bg-desk/[0.85] border border-gold/[0.18]">
             <p className="font-typewriter mb-2 text-[#5a4a3a] text-[0.68rem] tracking-[0.1em]">
               BALLOT QUEUE
@@ -554,7 +547,6 @@ export default function GameScreen({ onEnd, onPause, onResume, muted = false, on
             <span className="font-nepali text-[0.6rem] tracking-[0.08em] opacity-75">
               मान्य मतपत्र
             </span>
-            <span className="text-[0.56rem] opacity-40">[V]</span>
           </button>
 
           <div className="w-[55%] h-px bg-white/[0.06]" />
@@ -572,7 +564,6 @@ export default function GameScreen({ onEnd, onPause, onResume, muted = false, on
             <span className="font-nepali text-[0.6rem] tracking-[0.08em] opacity-75">
               अमान्य मतपत्र
             </span>
-            <span className="text-[0.56rem] opacity-40">[I]</span>
           </button>
 
           <div className="text-center mt-6">
@@ -594,22 +585,22 @@ export default function GameScreen({ onEnd, onPause, onResume, muted = false, on
         }}
       >
         <button
-          className={`flex-1 flex flex-row items-center justify-center gap-2 py-3 font-typewriter font-bold tracking-widest uppercase select-none transition-all duration-150 active:scale-95 text-[#22cc44] border-r border-white/[0.08] disabled:opacity-[0.45] disabled:cursor-not-allowed ${btnDisabled ? "bg-[rgba(34,204,68,0.03)]" : "bg-[rgba(34,204,68,0.08)]"}`}
+          className={`flex-1 flex flex-row items-center justify-center gap-2 py-5 font-typewriter font-bold tracking-widest uppercase select-none transition-all duration-150 active:scale-95 text-[#22cc44] border-r border-white/[0.08] disabled:opacity-[0.45] disabled:cursor-not-allowed ${btnDisabled ? "bg-[rgba(34,204,68,0.03)]" : "bg-[rgba(34,204,68,0.08)]"}`}
           onClick={() => decide("valid")}
           disabled={btnDisabled}
         >
-          <FiCheckCircle size={22} />
-          <span className="text-[0.9rem] tracking-[0.18em]">
+          <FiCheckCircle size={26} />
+          <span className="text-[1rem] tracking-[0.18em]">
             VALID
           </span>
         </button>
         <button
-          className={`flex-1 flex flex-row items-center justify-center gap-2 py-3 font-typewriter font-bold tracking-widest uppercase select-none transition-all duration-150 active:scale-95 text-[#ee3333] disabled:opacity-[0.45] disabled:cursor-not-allowed ${btnDisabled ? "bg-[rgba(238,51,51,0.03)]" : "bg-[rgba(238,51,51,0.08)]"}`}
+          className={`flex-1 flex flex-row items-center justify-center gap-2 py-5 font-typewriter font-bold tracking-widest uppercase select-none transition-all duration-150 active:scale-95 text-[#ee3333] disabled:opacity-[0.45] disabled:cursor-not-allowed ${btnDisabled ? "bg-[rgba(238,51,51,0.03)]" : "bg-[rgba(238,51,51,0.08)]"}`}
           onClick={() => decide("invalid")}
           disabled={btnDisabled}
         >
-          <FiXCircle size={22} />
-          <span className="text-[0.9rem] tracking-[0.18em]">
+          <FiXCircle size={26} />
+          <span className="text-[1rem] tracking-[0.18em]">
             INVALID
           </span>
         </button>

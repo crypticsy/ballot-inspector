@@ -4,7 +4,7 @@ import { Howl } from 'howler';
 // "Mind Bender" by Eric Matyas — soundimage.org (royalty-free, free with attribution)
 // import.meta.env.BASE_URL resolves to '/ballot-inspector/' in both dev and prod (from vite.config base)
 const TRACK_SRC = `${import.meta.env.BASE_URL}music/bg.mp3`;
-const VOLUME = 0.38;
+const VOLUME = 0.20;
 
 export function useMusic() {
   const howlRef = useRef<Howl | null>(null);

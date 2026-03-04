@@ -31,10 +31,10 @@ export default function Timer({ timeLeft, totalTime, compact = false }: Props) {
       <div className="flex items-center gap-2 pb-1.5">
         <FiClock
           style={{ color: textColor }}
-          className={`block ${compact ? 'text-[0.85rem]' : 'text-[1.1rem]'} ${isCritical ? 'animate-ticker' : ''}`}
+          className={`block ${compact ? 'text-[0.7rem]' : 'text-[1.1rem]'} ${isCritical ? 'animate-ticker' : ''}`}
         />
         <span
-          className={`font-mono font-bold tracking-widest block text-center leading-none ${compact ? 'text-[1.15rem] min-w-[50px]' : 'text-lg min-w-[68px]'}`}
+          className={`font-mono font-bold tracking-widest block text-center leading-none ${compact ? 'text-[0.85rem] min-w-[38px]' : 'text-lg min-w-[68px]'}`}
           style={{ color: textColor }}
         >
           {String(mins).padStart(2, '0')}:{String(secs).padStart(2, '0')}

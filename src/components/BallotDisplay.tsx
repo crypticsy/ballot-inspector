@@ -47,7 +47,7 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
 
   return (
     <div
-      className="ballot-paper rounded shadow-ballot mx-auto select-none w-full max-w-[460px] relative overflow-hidden"
+      className="ballot-paper rounded shadow-ballot mx-auto select-none w-full max-w-[540px] relative overflow-hidden"
     >
       {/* Torn corners */}
       {ballot.hasTear && ballot.tearPosition === 'top-right' && <div className="torn-corner-tr" />}
@@ -154,7 +154,7 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
 
       {/* Signature area */}
       <div
-        className="flex items-center px-3 font-nepali"
+        className="flex items-center justify-center px-3 font-nepali"
         style={{
           borderTop: '1.5px solid #1a1208',
           margin: '0 3px',
@@ -168,7 +168,8 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
         </span>
         <div
           style={{
-            flex: 1,
+            width: compact ? 80 : 120,
+            flexShrink: 0,
             borderBottom: ballot.hasSignature ? '1px solid #1a1208' : '1px dashed rgba(80,20,20,0.35)',
             marginLeft: 8,
             height: compact ? 16 : 22,
@@ -180,20 +181,21 @@ export default function BallotDisplay({ ballot, compact = false, containerHeight
               style={{
                 position: 'absolute',
                 bottom: 1,
-                left: 4,
+                left: '50%',
+                transform: 'translateX(-50%) rotate(-2deg)',
                 fontSize: compact ? '0.6rem' : '0.78rem',
                 fontFamily: 'Courier Prime, cursive',
                 color: '#1a1208',
                 fontStyle: 'italic',
                 opacity: 0.85,
-                transform: 'rotate(-2deg)',
                 display: 'inline-block',
+                whiteSpace: 'nowrap',
               }}
             >
               / <span className='font-bold' style={{ fontFamily: 'serif', letterSpacing: '-0.5px', color: '#b91c1c' }}>निर्वाचन अधिकृत</span>
             </span>
           ) : (
-            <span style={{ position: 'absolute', bottom: 2, left: 4, fontSize: '0.62rem', fontFamily: 'Courier Prime, monospace', color: 'rgba(160,30,30,0.45)', letterSpacing: '0.05em' }}>
+            <span style={{ position: 'absolute', bottom: 2, left: '50%', transform: 'translateX(-50%)', fontSize: '0.62rem', fontFamily: 'Courier Prime, monospace', color: 'rgba(160,30,30,0.45)', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>
               — — —
             </span>
           )}
