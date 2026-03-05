@@ -19,10 +19,10 @@ export default function StartScreen({ onStart }: Props) {
         className="absolute top-0 left-0 right-0 h-1 bg-[linear-gradient(90deg,transparent,rgba(184,150,12,0.3),transparent)]"
       />
 
-      <div className="flex flex-col md:flex-row gap-6 items-stretch max-w-4xl w-full px-6 md:px-6 py-16 md:py-0 md:min-h-0 md:overflow-y-auto mb-0 md:mb-12">
+      <div className="flex flex-col md:flex-row gap-6 items-stretch max-w-5xl w-full px-6 md:px-6 py-16 md:py-0 md:min-h-0 md:overflow-y-auto mb-0 md:mb-12">
 
         {/* LEFT: Quick Reference + Election Counter */}
-        <div className="order-2 md:order-1 w-full md:w-[350px] md:flex-shrink-0 flex flex-col gap-3">
+        <div className="order-2 md:order-1 w-full md:w-[450px] md:flex-shrink-0 flex flex-col gap-3">
 
           {/* Election Countdown box */}
           <div className="rounded bg-ink/[0.95] border border-gold/30">
@@ -36,10 +36,10 @@ export default function StartScreen({ onStart }: Props) {
             </p>
 
             <div className="mb-5">
-              <p className="font-mono mb-2 text-[#22cc44] text-[0.8rem]">
+              <p className="font-typewriter mb-2 text-[#22cc44] text-[0.8rem]">
                 Valid If :
               </p>
-              <ul className="space-y-1.5">
+              <ul className="space-y-1.5 p-4 rounded bg-black/30 border border-white/[0.04]">
                 {VALID_RULES.map((r, i) => (
                   <li key={i} className="font-mono text-[#9e947d] text-[0.78rem] leading-[1.5]">
                     · {r}
@@ -49,10 +49,10 @@ export default function StartScreen({ onStart }: Props) {
             </div>
 
             <div>
-              <p className="font-mono mb-2 text-[#f34545] text-[0.8rem]">
+              <p className="font-typewriter mb-2 text-[#f34545] text-[0.8rem]">
                 Invalid If :
               </p>
-              <ul className="grid grid-cols-2 gap-x-3 gap-y-1.5">
+              <ul className="grid grid-cols-2 gap-x-3 gap-y-1.5 p-4 rounded bg-black/30 border border-white/[0.04]">
                 {INVALID_RULES.map((r, i) => (
                   <li key={i} className="font-mono text-[#9e947d] text-[0.72rem] leading-[1.5]">
                     · {r.label}
@@ -109,7 +109,7 @@ export default function StartScreen({ onStart }: Props) {
           </div>
 
           {/* Title */}
-          <div className="mb-6">
+          <div className="mb-2">
             <h1 className="font-typewriter text-2xl md:text-3xl font-bold tracking-widest uppercase text-gold leading-[1.1] mb-2">
               ELECTION CONTROL
             </h1>
@@ -119,7 +119,7 @@ export default function StartScreen({ onStart }: Props) {
           </div>
 
           {/* Story text */}
-          <div className="mb-6 p-2 text-[#cec7b4]">
+          <div className="mb-4 p-4 rounded bg-black/30 border border-white/[0.04] text-[#cec7b4]">
             <p className="font-mono  text-[0.82rem] leading-[1.7]">
               You have been assigned tothe Ballot Validation Station of the
               Election Commission of Nepal.

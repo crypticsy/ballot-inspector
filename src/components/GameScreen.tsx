@@ -379,7 +379,7 @@ export default function GameScreen({ onEnd, onHome, onPause, onResume, muted = f
       {/* ── Main content ── */}
       <div className="flex flex-1 overflow-hidden md:gap-3 md:px-3 md:py-2">
         {/* Left sidebar — desktop only */}
-        <div className="hidden md:flex shrink-0 flex-col gap-2 w-[15rem]">
+        <div className="hidden md:flex shrink-0 flex-col gap-2 w-[16.5rem]">
           <RulesReference />
           
           {/* Creator credit */}
@@ -469,7 +469,7 @@ export default function GameScreen({ onEnd, onHome, onPause, onResume, muted = f
         </div>
 
         {/* Right sidebar — desktop only */}
-        <div className="hidden md:flex shrink-0 flex-col items-center gap-2 w-[195px]">
+        <div className="hidden md:flex shrink-0 flex-col items-center gap-2 w-[12.5rem]">
             {/* Ballot progress tracker */}
           <div className="w-full px-3 py-3 rounded bg-desk/[0.85] border border-gold/[0.18]">
             <p className="font-mono mb-2 text-gold text-[0.68rem] tracking-[0.1em]">

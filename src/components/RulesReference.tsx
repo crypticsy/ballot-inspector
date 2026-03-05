@@ -23,7 +23,7 @@ export default function RulesReference() {
           <div className="flex items-center gap-1.5 mb-4  text-[#2a9a2a]">
             <FiCheckCircle size={13} />
             <span
-              className="tracking-wider uppercase text-[0.7rem] mt-1.5"
+              className="tracking-wider uppercase text-[0.7rem] mt-1"
             >
               Valid Ballot
             </span>
@@ -43,7 +43,7 @@ export default function RulesReference() {
           <div className="flex items-center gap-1.5 mb-4 text-stamp-red-light">
             <FiXCircle size={13} />
             <span
-              className="tracking-wider uppercase text-[0.7rem] mt-1.5"
+              className="tracking-wider uppercase text-[0.7rem] mt-1"
             >
               Invalid Ballot
             </span>

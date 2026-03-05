@@ -116,7 +116,7 @@ export default function FlipClock() {
       <p className="font-nepali text-[0.56rem] text-[#8a7a68] mb-2.5">
         5 March 2026 / २१ फाल्गुण २०८२
       </p>
-      <div className="flex items-start justify-center gap-0.5">
+      <div className="flex items-start justify-center gap-1.5">
         <FlipCard value={time.days}    label="DAYS" />
         <span className="font-mono font-bold text-[1.1rem] text-[#7a6a50] leading-none self-center mb-[18px]">:</span>
         <FlipCard value={time.hours}   label="HRS"  />
