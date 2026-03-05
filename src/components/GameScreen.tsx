@@ -256,10 +256,10 @@ export default function GameScreen({ onEnd, onHome, onPause, onResume, muted = f
         >
           <GiStamper size={22} className="text-gold" />
           <div className="text-left">
-            <p className="font-typewriter tracking-widest uppercase text-gold text-[0.78rem]">
+            <p className="font-mono tracking-widest uppercase text-gold text-[0.78rem]">
               Ballot Inspector
             </p>
-            <p className="font-typewriter text-[#5a4a3a] text-[0.68rem] mt-0.5">
+            <p className="font-mono text-[#5a4a3a] text-[0.68rem] mt-0.5">
               Ballot Validation Station
             </p>
           </div>
@@ -287,7 +287,7 @@ export default function GameScreen({ onEnd, onHome, onPause, onResume, muted = f
         <div className="flex items-center gap-5">
           {statsItems.map(({ label, value, color }) => (
             <div key={label} className="text-center">
-              <p className="font-typewriter text-[#5a4a3a] text-[0.65rem] tracking-[0.08em]">
+              <p className="font-mono text-[#cec7b4] text-[0.65rem] tracking-[0.08em]">
                 {label}
               </p>
               <p
@@ -318,7 +318,7 @@ export default function GameScreen({ onEnd, onHome, onPause, onResume, muted = f
         <div className="flex items-center gap-4 pt-[10px]">
           {statsItems.map(({ label, value, color }) => (
             <div key={label} className="text-center">
-              <p className="font-typewriter text-[#5a4a3a] text-[0.48rem] tracking-[0.04em]">
+              <p className="font-mono text-[#cec7b4] text-[0.48rem] tracking-[0.04em]">
                 {label}
               </p>
               <p
@@ -356,21 +356,21 @@ export default function GameScreen({ onEnd, onHome, onPause, onResume, muted = f
           {voter.face}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="font-typewriter font-bold truncate text-[#d4c8b0] text-[0.72rem]">
+          <p className="font-mono font-bold truncate text-[#d4c8b0] text-[0.72rem]">
             {voter.name}
           </p>
-          <p className="font-typewriter text-[#5a4a3a] text-[0.6rem]">
+          <p className="font-mono text-[#cec7b4]/80 text-[0.6rem]">
             Age {voter.age} · {voter.district}
           </p>
         </div>
         <div className="rounded px-2 py-1 shrink-0 bg-black/40 border border-white/[0.04]">
-          <p className="font-mono text-[#4a3a28] text-[0.55rem] tracking-[0.08em]">
+          <p className="font-mono text-[#cec7b4]/60 text-[0.55rem] tracking-[0.08em]">
             {voter.voterId}
           </p>
         </div>
         <div className="flex items-center gap-1 shrink-0">
-          <FiFileText size={12} className="text-[#5a4a3a]" />
-          <span className="font-typewriter text-[0.72rem] text-[#7a6a5a]">
+          <FiFileText size={12} className="text-[#cec7b4]" />
+          <span className="font-typewriter text-[0.72rem] text-[#cec7b4]/80">
             {Math.min(currentIdx + 1, ballots.length)}/{ballots.length}
           </span>
         </div>
@@ -387,18 +387,18 @@ export default function GameScreen({ onEnd, onHome, onPause, onResume, muted = f
             href="https://www.animeshbasnet.com.np/"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full group flex items-center justify-center gap-2 py-2.5 pr-6 rounded no-underline bg-desk/[0.85] border border-gold/[0.18]"
+            className="w-full group flex items-center justify-center gap-2 py-2.5 pr-6 rounded no-underline bg-desk/[0.85] border border-gold/[0.18] group"
           >
             <img
               src="https://github.com/crypticsy.png"
               alt="Crypticsy"
-              className="rounded-full shrink-0 opacity-70 group-hover:opacity-100 transition-opacity duration-200 w-7 h-7"
+              className="rounded-full shrink-0 opacity-70 group-hover:opacity-100 transition-opacity duration-200 w-7 h-7 group-hover:ring-2 group-hover:ring-gold"
             />
             <div className="flex gap-2 tems-start mt-1 items-center">
-              <p className="font-typewriter text-[#5a4a3a] text-[0.58rem] tracking-[0.08em]">
+              <p className="font-mono text-[#9e947d] text-[0.58rem] tracking-[0.08em]">
                 CREATED BY
               </p>
-              <p className="font-typewriter group-hover:text-amber-400 transition-colors duration-200 text-[#7a6a5a] text-[0.68rem] tracking-[0.06em]">
+              <p className="font-mono group-hover:text-amber-400 transition-colors duration-200 text-[#9e947d] text-[0.68rem] tracking-[0.06em]">
                 Crypticsy
               </p>
             </div>
@@ -447,7 +447,7 @@ export default function GameScreen({ onEnd, onHome, onPause, onResume, muted = f
                     className="absolute inset-0 flex flex-col items-center justify-center gap-4 rounded"
                     style={{ background: 'rgba(10,5,2,0.82)', backdropFilter: 'blur(2px)', zIndex: 50 }}
                   >
-                    <p className="font-typewriter tracking-[0.3em] uppercase text-gold text-[0.7rem]">
+                    <p className="font-mono tracking-[0.3em] uppercase text-gold text-[0.7rem]">
                       — SHIFT SUSPENDED —
                     </p>
                     <button
@@ -457,7 +457,7 @@ export default function GameScreen({ onEnd, onHome, onPause, onResume, muted = f
                       <FiPlay size={14} />
                       RESUME
                     </button>
-                    <p className="font-typewriter text-[#5a4a3a] text-[0.58rem] tracking-[0.1em]">
+                    <p className="font-mono text-[#5a4a3a] text-[0.58rem] tracking-[0.1em]">
                       [P] or [ESC]
                     </p>
                   </div>
@@ -472,7 +472,7 @@ export default function GameScreen({ onEnd, onHome, onPause, onResume, muted = f
         <div className="hidden md:flex shrink-0 flex-col items-center gap-2 w-[195px]">
             {/* Ballot progress tracker */}
           <div className="w-full px-3 py-3 rounded bg-desk/[0.85] border border-gold/[0.18]">
-            <p className="font-typewriter mb-2 text-[#5a4a3a] text-[0.68rem] tracking-[0.1em]">
+            <p className="font-mono mb-2 text-gold text-[0.68rem] tracking-[0.1em]">
               BALLOT QUEUE
             </p>
             <div className="flex flex-wrap gap-1">
@@ -490,7 +490,7 @@ export default function GameScreen({ onEnd, onHome, onPause, onResume, muted = f
                           : "rgba(180,0,0,0.55)"
                         : i === currentIdx
                           ? "#b8960c"
-                          : "rgba(255,255,255,0.07)",
+                          : "rgba(255,255,255,0.12)",
                   }}
                 />
               ))}
@@ -515,23 +515,23 @@ export default function GameScreen({ onEnd, onHome, onPause, onResume, muted = f
               </div>
 
               <div className="text-center w-full">
-                <p className="font-typewriter font-bold leading-tight text-[#d4c8b0] text-[0.72rem] break-words">
+                <p className="font-mono font-bold leading-tight text-[#d4c8b0] text-[0.72rem] break-words">
                   {voter.name}
                 </p>
-                <p className="font-typewriter mt-0.5 text-[#5a4a3a] text-[0.6rem]">
+                <p className="font-mono mt-0.5 text-[#cec7b4]/70 text-[0.6rem]">
                   Age {voter.age} · {voter.district}
                 </p>
               </div>
 
               <div className="w-full text-center rounded px-2 py-1 bg-black/30 border border-white/[0.04]">
-                <p className="font-mono text-[#4a3a28] text-[0.6rem] tracking-[0.1em]">
+                <p className="font-mono text-[#cec7b4]/60 text-[0.6rem] tracking-[0.1em]">
                   {voter.voterId}
                 </p>
               </div>
             </div>
           </div>
 
-          <p className="font-typewriter mt-6 text-[#5a4a3a] text-[0.66rem] tracking-[0.12em]">
+          <p className="font-mono mt-6 text-gold text-[0.66rem] tracking-[0.12em]">
             YOUR VERDICT
           </p>
 
@@ -568,10 +568,10 @@ export default function GameScreen({ onEnd, onHome, onPause, onResume, muted = f
           </button>
 
           <div className="text-center mt-6">
-            <p className="font-typewriter text-white/30 text-[0.62rem] leading-[1.8]">
-              ✓ correct:{" "}
+            <p className="font-mono text-[#cec7b4] text-[0.62rem] leading-[1.8]">
+              Correct:{" "}
               <span className="text-[#22cc44]">+{CORRECT_BONUS}s</span>
-              <br />✗ wrong:{" "}
+              <br />Wrong:{" "}
               <span className="text-[#ee3333]">−{WRONG_PENALTY}s</span>
             </p>
           </div>

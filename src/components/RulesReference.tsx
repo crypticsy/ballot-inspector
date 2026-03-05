@@ -19,11 +19,11 @@ export default function RulesReference() {
 
       <div className="px-3 py-2 flex-1 flex flex-col justify-between">
         {/* Valid section */}
-        <div>
-          <div className="flex items-center gap-1.5 mb-4 mt-4 text-[#2a9a2a]">
+        <div className="font-mono">
+          <div className="flex items-center gap-1.5 mb-4  text-[#2a9a2a]">
             <FiCheckCircle size={13} />
             <span
-              className="font-typewriter tracking-wider uppercase text-[0.7rem]"
+              className="tracking-wider uppercase text-[0.7rem] mt-1.5"
             >
               Valid Ballot
             </span>
@@ -31,7 +31,7 @@ export default function RulesReference() {
           <ul className="space-y-2">
             {VALID_RULES.map((r, i) => (
               <li key={i} className="flex items-start gap-1.5 text-[#8ab88a] text-[0.66rem] leading-[1.35]">
-                <span className="text-[#2a9a2a] mt-[2px] shrink-0">·</span>
+                <span className="text-[#3ca53c] mt-[2px] shrink-0">·</span>
                 <span>{r}</span>
               </li>
             ))}
@@ -43,14 +43,15 @@ export default function RulesReference() {
           <div className="flex items-center gap-1.5 mb-4 text-stamp-red-light">
             <FiXCircle size={13} />
             <span
-              className="font-typewriter tracking-wider uppercase text-[0.7rem]"
+              className="tracking-wider uppercase text-[0.7rem] mt-1.5"
             >
               Invalid Ballot
             </span>
           </div>
           <ul className="space-y-2">
             {INVALID_RULES.map((r, i) => (
-              <li key={i} className="text-[0.66rem] leading-[1.35]">
+              <li key={i} className="font-mono text-[0.66rem] leading-[1.35]">
+                <span className="text-stamp-red-light mt-[2px] shrink-0 mr-2">·</span>
                 <span className="font-bold capitalize text-[#ee4444]">{r.label}</span>
                 {' — '}
                 <span className="text-[#8a6868] text-[0.62rem]">{r.desc}</span>
@@ -60,7 +61,7 @@ export default function RulesReference() {
         </div>
 
         <div
-          className="pt-2 border-t border-[rgba(180,150,100,0.12)] text-[#4a3a2a] text-[0.58rem] leading-[1.4]"
+          className="pt-2 border-t border-[rgba(180,150,100,0.12)] text-[#9e947d] text-[0.58rem] leading-[1.4]"
         >
           Election Commission, Nepal
           <br />

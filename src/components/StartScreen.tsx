@@ -31,17 +31,17 @@ export default function StartScreen({ onStart }: Props) {
 
           {/* Quick Reference box */}
           <div className="rounded p-5 bg-ink/[0.95] border border-gold/20 flex flex-col flex-1">
-            <p className="font-typewriter tracking-widest uppercase mb-4 text-gold text-[0.78rem]">
+            <p className="font-mono tracking-widest uppercase mb-4 text-gold text-[0.78rem]">
               QUICK REFERENCE
             </p>
 
             <div className="mb-5">
-              <p className="font-typewriter mb-2 text-[#22cc44] text-[0.8rem]">
-                ✓ VALID IF:
+              <p className="font-mono mb-2 text-[#22cc44] text-[0.8rem]">
+                Valid If :
               </p>
               <ul className="space-y-1.5">
                 {VALID_RULES.map((r, i) => (
-                  <li key={i} className="font-typewriter text-[#7a9a7a] text-[0.78rem] leading-[1.5]">
+                  <li key={i} className="font-mono text-[#9e947d] text-[0.78rem] leading-[1.5]">
                     · {r}
                   </li>
                 ))}
@@ -49,12 +49,12 @@ export default function StartScreen({ onStart }: Props) {
             </div>
 
             <div>
-              <p className="font-typewriter mb-2 text-[#ee3333] text-[0.8rem]">
-                ✗ INVALID IF:
+              <p className="font-mono mb-2 text-[#f34545] text-[0.8rem]">
+                Invalid If :
               </p>
               <ul className="grid grid-cols-2 gap-x-3 gap-y-1.5">
                 {INVALID_RULES.map((r, i) => (
-                  <li key={i} className="font-typewriter text-[#9a7070] text-[0.72rem] leading-[1.5]">
+                  <li key={i} className="font-mono text-[#9e947d] text-[0.72rem] leading-[1.5]">
                     · {r.label}
                   </li>
                 ))}
@@ -65,16 +65,16 @@ export default function StartScreen({ onStart }: Props) {
 
             {/* Resources */}
             <div className="mt-4 pt-4 border-t border-white/[0.06]">
-              <p className="font-typewriter text-white/30 text-[0.6rem] tracking-widest uppercase mb-2">
+              <p className="font-typewriter text-[#cec7b4] text-[0.6rem] tracking-widest mb-2">
                 IRL Resources
               </p>
-              <ul className="grid grid-cols-2 gap-x-3 gap-y-1">
+              <ul className="grid grid-cols-2 gap-x-3 gap-y-1 capitalize">
                 <li>
                   <a
                     href="https://votefornepal.org/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-typewriter text-gold/50 text-[0.72rem] hover:text-gold/80 transition-colors duration-150 underline underline-offset-2"
+                    className="font-typewriter text-gold text-[0.72rem] hover:text-gold/80 transition-colors duration-150 underline underline-offset-2"
                   >
                     votefornepal.org
                   </a>
@@ -84,7 +84,7 @@ export default function StartScreen({ onStart }: Props) {
                     href="https://www.chunab.org/home"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-typewriter text-gold/50 text-[0.72rem] hover:text-gold/80 transition-colors duration-150 underline underline-offset-2"
+                    className="font-typewriter text-gold text-[0.72rem] hover:text-gold/80 transition-colors duration-150 underline underline-offset-2"
                   >
                     chunab.org
                   </a>
@@ -99,7 +99,7 @@ export default function StartScreen({ onStart }: Props) {
           <div className="flex items-center gap-4 mb-6 pb-4 border-b border-gold/20">
             <GiStamper size={32} className="animate-flicker text-gold shrink-0" />
             <div>
-              <p className="font-typewriter tracking-widest uppercase text-sm text-gold">
+              <p className="font-mono tracking-widest uppercase text-sm text-gold">
                 Ballot Inspector
               </p>
               <p className="font-nepali font-bold text-gold-light text-[0.85rem] mt-0.5">
@@ -110,40 +110,38 @@ export default function StartScreen({ onStart }: Props) {
 
           {/* Title */}
           <div className="mb-6">
-            <h1 className="font-typewriter text-2xl md:text-3xl font-bold tracking-widest uppercase text-paper leading-[1.1] mb-2">
-              BALLOT INSPECTOR
+            <h1 className="font-typewriter text-2xl md:text-3xl font-bold tracking-widest uppercase text-gold leading-[1.1] mb-2">
+              ELECTION CONTROL
             </h1>
-            <p className="font-nepali text-[#9a8870] text-[0.8rem]">
-              मतपत्र परीक्षक — मतगणना विभाग
+            <p className="font-nepali text-gold text-[0.8rem]">
+              निर्वाचन नियन्त्रण कक्ष
             </p>
           </div>
 
           {/* Story text */}
-          <div className="mb-6 p-4 rounded bg-black/30 border border-white/[0.04]">
-            <p className="font-typewriter text-[#9a8870] text-[0.82rem] leading-[1.7]">
-              You have been assigned to the{' '}
-              <span className="text-[#c8b89a]">Ballot Validation Station</span> of the
+          <div className="mb-6 p-2 text-[#cec7b4]">
+            <p className="font-mono  text-[0.82rem] leading-[1.7]">
+              You have been assigned tothe Ballot Validation Station of the
               Election Commission of Nepal.
             </p>
-            <p className="font-typewriter mt-3 text-[#9a8870] text-[0.82rem] leading-[1.7]">
-              Your duty: examine each{' '}
-              <span className="text-[#c8b89a]">Proportional Representation ballot</span>{' '}
+            <p className="font-mono mt-3 text-[0.82rem] leading-[1.7]">
+              Your duty: Examine each Proportional Representation ballot
               and determine whether it is{' '}
               <span className="text-[#22cc44]">VALID</span> or{' '}
               <span className="text-[#ee3333]">INVALID</span> before time runs out.
             </p>
-            <p className="font-typewriter mt-3 text-[#9a8870] text-[0.82rem] leading-[1.7]">
+
+            <p className="font-mono mt-3 text-[0.82rem] leading-[1.7]">
               The integrity of the election depends on your accuracy.
             </p>
-          </div>
+            
+            <p className="font-mono text-[#cc9988] text-[0.82rem] leading-[1.7]  mt-3 ">
+              <span className="text-[#ee3333]">Wrong decisions cost -8 seconds.</span> <br/> 
+              <span className="text-[#22cc44]">Each correct decision earns +2 seconds.</span> 
+            </p>
 
-          {/* Warning */}
-          <div className="flex items-start gap-3 mb-6 p-3 rounded bg-stamp-red/10 border border-stamp-red/25">
-            <FiAlertTriangle size={13} className="text-[#cc3333] mt-[2px] shrink-0" />
-            <p className="font-typewriter text-[#cc9988] text-[0.78rem] leading-[1.6]">
-              Wrong decisions cost{' '}
-              <span className="text-[#ff6666]">−8 seconds</span>. Each correct decision earns{' '}
-              <span className="text-[#66cc66]">+2 seconds</span>. The shift ends when time expires.
+            <p className="font-mono mt-3 text-[0.82rem] leading-[1.7]">
+              The shift ends when time expires.
             </p>
           </div>
 
@@ -152,12 +150,12 @@ export default function StartScreen({ onStart }: Props) {
             onClick={onStart}
             className="w-full flex items-center justify-center gap-3 py-4 rounded font-typewriter tracking-[0.25em] uppercase transition-all duration-200 bg-gold/[0.12] border-2 border-gold text-gold-light text-[0.85rem] shadow-[0_0_20px_rgba(184,150,12,0.1)] hover:bg-gold/[0.22] hover:shadow-[0_0_30px_rgba(184,150,12,0.2)]"
           >
-            <span>REPORT FOR DUTY</span>
+            <span className="mt-1">REPORT FOR DUTY</span>
             <FiChevronRight size={16} />
           </button>
 
           {/* Disclaimer */}
-          <p className="mt-auto pt-5 font-typewriter text-white/20 text-[0.55rem] tracking-[0.08em] text-center">
+          <p className="mt-auto pt-5 font-mono text-[#94846C] text-[0.55rem] tracking-[0.08em] text-center">
             This is a fictional game inspired by Nepal's election process.
           </p>
         </div>
