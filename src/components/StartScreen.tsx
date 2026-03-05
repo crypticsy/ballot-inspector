@@ -1,4 +1,4 @@
-import { FiChevronRight, FiAlertTriangle } from 'react-icons/fi';
+import { FiChevronRight } from 'react-icons/fi';
 import { GiStamper } from 'react-icons/gi';
 import { VALID_RULES, INVALID_RULES } from '../data/rules';
 import FlipClock from './FlipClock';
